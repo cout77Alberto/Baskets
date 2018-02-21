@@ -12,7 +12,7 @@ import android.view.ViewGroup;
  * Created by Daniel on 2/20/2018.
  */
 
-public class MarketFragment extends Fragment {
+public class TradesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
