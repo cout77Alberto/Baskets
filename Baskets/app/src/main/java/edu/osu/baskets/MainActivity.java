@@ -1,9 +1,11 @@
 package edu.osu.baskets;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.app.FragmentManager;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,14 +14,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.navbar_container);
 
         if (fragment == null){
             fragment = new NavbarFragment();
-            fm.beginTransaction()
-                    .add(R.id.navbar_container, fragment)
-                    .commit();
+                fm.beginTransaction()
+                        .add(R.id.navbar_container, fragment)
+                        .commit();
         }
+    }
+
+    public void onClick(View view) {
+        Fragment fragment = new TradesFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.trades_container, fragment );
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
