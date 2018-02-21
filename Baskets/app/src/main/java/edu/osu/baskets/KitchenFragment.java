@@ -7,17 +7,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import static android.content.ContentValues.TAG;
-
+import android.widget.Button;
 
 /**
- * Created by Daniel on 2/20/2018.
+ * Created by Alberto on 2/19/2018.
  */
 
-public class TradesFragment extends Fragment {
+public class KitchenFragment extends Fragment {
 
-    private static String TAG  = "TradesFragment";
+    private static final String TAG = "KitchenFragment";
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +25,10 @@ public class TradesFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_trades, container, false);
+        View v = inflater.inflate(R.layout.fragment_kitchen, container, false);
         return v;
     }
+
     @Override
     public void onStart() {
         super.onStart();

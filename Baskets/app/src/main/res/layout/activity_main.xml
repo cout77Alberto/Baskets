@@ -14,11 +14,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"></FrameLayout>
     <FrameLayout
-        android:id="@+id/trades_container"
+        android:id="@+id/fragment_container"
         android:layout_width="fill_parent"
         android:layout_height="150dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"></FrameLayout>
+
 
 
 </RelativeLayout>

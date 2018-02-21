@@ -7,11 +7,13 @@
     <ImageButton
         android:id="@+id/inventory_ib"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onClick"/>
     <ImageButton
         android:id="@+id/map_ib"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:onClick="onClick"/>
     <ImageButton
         android:id="@+id/trades_ib"
         android:layout_width="wrap_content"
@@ -20,6 +22,6 @@
     <ImageButton
         android:id="@+id/kitchen_ib"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:onClick="onClick"/>
 </LinearLayout>
