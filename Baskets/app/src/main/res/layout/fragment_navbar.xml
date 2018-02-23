@@ -1,27 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
 
     <ImageButton
         android:id="@+id/inventory_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClick"/>
+        android:src="@drawable/basket_icon"
+        android:maxWidth="90dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:onClick="onClick"
+        android:contentDescription="@string/inventory_button_description"/>
     <ImageButton
         android:id="@+id/map_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClick"/>
+        android:src="@drawable/location_icon"
+        android:maxWidth="90dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:onClick="onClick"
+        android:contentDescription="@string/map_button_description"/>
     <ImageButton
         android:id="@+id/trades_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClick"/>
+        android:src="@drawable/trade_icon"
+        android:maxWidth="90dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:onClick="onClick"
+        android:contentDescription="@string/trades_button_description"/>
     <ImageButton
         android:id="@+id/kitchen_ib"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onClick"/>
+        android:src="@drawable/cookingpot_icon"
+        android:maxWidth="90dp"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:onClick="onClick"
+        android:contentDescription="@string/kitchen_button_description"/>
 </LinearLayout>
