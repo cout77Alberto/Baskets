@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="expiration_days_default">5</integer>
+    <integer name="expiration_days_long">14</integer>
+
+    <integer name="calories_small">5</integer>
+    <integer name="calories_medium">10</integer>
+    <integer name="calories_large">20</integer>
+</resources>

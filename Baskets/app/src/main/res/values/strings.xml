@@ -4,4 +4,14 @@
     <string name="map_button_description">The Market</string>
     <string name="trades_button_description">My Trades</string>
     <string name="kitchen_button_description">My Kitchen</string>
+
+    <string-array name="prefablist">
+        <item>strawberries</item>
+        <item>sugar</item>
+        <item>piecrust</item>
+        <item>gelatin</item>
+        <item>potatoes</item>
+    </string-array>
+
+
 </resources>
