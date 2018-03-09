@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context="edu.osu.baskets.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <FrameLayout
         android:id="@+id/navbar_container"
         android:layout_width="fill_parent"
@@ -19,7 +27,5 @@
         android:layout_height="400dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
-
-
 
 </RelativeLayout>

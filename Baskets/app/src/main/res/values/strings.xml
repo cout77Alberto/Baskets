@@ -13,5 +13,7 @@
         <item>potatoes</item>
     </string-array>
 
+    <string name="account_menu_item">Account</string>
+    <string name="leader_menu_item">Leaderboard</string>
 
 </resources>
