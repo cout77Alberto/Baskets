@@ -6,11 +6,35 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/button_recipes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="You are on Kitchen Screen" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="67dp"
+        android:text="Recipes" />
+
+    <Button
+        android:id="@+id/button_cooking_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button_recipes"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="65dp"
+        android:layout_marginRight="65dp"
+        android:text="History" />
+
+    <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/recipe_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/button_recipes"
+        android:layout_alignStart="@+id/button_recipes"
+        android:layout_below="@+id/button_recipes" />
+
 </RelativeLayout>
