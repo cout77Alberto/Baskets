@@ -1,6 +1,7 @@
 package edu.osu.baskets;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import edu.osu.baskets.recipes.BaseRecipe;
+import edu.osu.baskets.recipes.CookingHistory;
 import edu.osu.baskets.recipes.RecipeBook;
 
 /**
@@ -22,7 +24,7 @@ import edu.osu.baskets.recipes.RecipeBook;
  */
 
 public class KitchenFragment extends Fragment {
-
+    private boolean toggle = true;
     private static final String TAG = "KitchenFragment";
     private Button mRecipesButton, mHistoryButton;
     private RecyclerView mRecyclerView;
@@ -36,8 +38,27 @@ public class KitchenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_kitchen, container, false);
-        //mRecipesButton = v.findViewById(R.id.button_recipes);
-        //mHistoryButton = v.findViewById(R.id.button_cooking_history);
+        mRecipesButton = v.findViewById(R.id.button_recipes);
+        mHistoryButton = v.findViewById(R.id.button_cooking_history);
+        mRecipesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggle = true;
+                mRecipesButton.setBackgroundColor(Color.GRAY);
+                mHistoryButton.setBackgroundColor(Color.LTGRAY);
+                updateUI();
+            }
+        });
+
+        mHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggle = false;
+                mRecipesButton.setBackgroundColor(Color.LTGRAY);
+                mHistoryButton.setBackgroundColor(Color.GRAY);
+                updateUI();
+            }
+        });
         mRecyclerView = v.findViewById(R.id.recipe_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -46,11 +67,17 @@ public class KitchenFragment extends Fragment {
     }
 
     private void updateUI() {
-        RecipeBook crimeLab = RecipeBook.get(getActivity());
-        List<BaseRecipe> crimes = crimeLab.getRecipes();
-
-        mAdapter = new RecipeAdapter(crimes);
-        mRecyclerView.setAdapter(mAdapter);
+        RecipeBook recipeBook = RecipeBook.get(getActivity());
+        CookingHistory cookingHistory = CookingHistory.get(getActivity());
+        List<BaseRecipe> recipes = recipeBook.getRecipes();
+        List<BaseRecipe> history = cookingHistory.getRecipes();
+        if(toggle) {
+            mAdapter = new RecipeAdapter(recipes);
+            mRecyclerView.setAdapter(mAdapter);
+        }else {
+            mAdapter = new RecipeAdapter(history);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     @Override
