@@ -16,4 +16,6 @@
     <string name="account_menu_item">Account</string>
     <string name="leader_menu_item">Leaderboard</string>
 
+    <string name="splash_screen">Baskets</string>
+
 </resources>
