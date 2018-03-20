@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.util.Log;
 
+import edu.osu.baskets.recipes.CookingHistory;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,31 +38,6 @@ public class MainActivity extends AppCompatActivity {
                         .add(R.id.navbar_container, fragment)
                         .commit();
         }
-    }
-
-    public void onClick(View view) {
-        Fragment fragment;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        switch (view.getId()) {
-            case R.id.trades_ib:
-                fragment = new TradesFragment();
-                transaction.replace(R.id.fragment_container, fragment);
-                break;
-            case R.id.kitchen_ib:
-                fragment = new KitchenFragment();
-                transaction.replace(R.id.fragment_container, fragment);
-                break;
-            case R.id.inventory_ib:
-                fragment = new InventoryFragment();
-                transaction.replace(R.id.fragment_container, fragment);
-                break;
-            case R.id.map_ib:
-                fragment = new MapFragment();
-                transaction.replace(R.id.fragment_container, fragment);
-                break;
-        }
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     @Override
@@ -89,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");
+        CookingHistory.get(this).initialize(this);
     }
 
     @Override
@@ -104,14 +82,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop() called");
-    }
-
-    @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
+        CookingHistory.get(this).saveToFile(this);
     }
 }

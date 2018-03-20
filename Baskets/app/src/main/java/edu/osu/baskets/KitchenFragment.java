@@ -7,12 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import edu.osu.baskets.recipes.BaseRecipe;
@@ -70,59 +74,54 @@ public class KitchenFragment extends Fragment {
         RecipeBook recipeBook = RecipeBook.get(getActivity());
         CookingHistory cookingHistory = CookingHistory.get(getActivity());
         List<BaseRecipe> recipes = recipeBook.getRecipes();
-        List<BaseRecipe> history = cookingHistory.getRecipes();
-        if(toggle) {
+        List<BaseRecipe> history = cookingHistory.reverse();
+        if (toggle) {
             mAdapter = new RecipeAdapter(recipes);
             mRecyclerView.setAdapter(mAdapter);
-        }else {
+        } else {
             mAdapter = new RecipeAdapter(history);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart() called");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume() called");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d(TAG, "onPause() called");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop() called");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy() called");
-    }
-
     private class RecipeHolder extends RecyclerView.ViewHolder {
-        private TextView mTitleTextView;
+        private TextView mTitleTextView, mCreatedTextView;
+        private Button mMakeButton;
         private BaseRecipe mRecipe;
-
+        private Date created=null;
         public RecipeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_recipe, parent, false));
-
+            mCreatedTextView = (TextView) itemView.findViewById(R.id.created_text);
             mTitleTextView = (TextView) itemView.findViewById(R.id.recipe_title);
+            mMakeButton = (Button) itemView.findViewById(R.id.make_button);
+            mMakeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mRecipe!=null) {
+                        mRecipe.make(getActivity());
+                    }
+                }
+            });
+            if(!toggle){
+                mMakeButton.setVisibility(View.INVISIBLE);
+            }else{
+                mCreatedTextView.setVisibility(View.INVISIBLE);
+            }
         }
 
-        public void bind(BaseRecipe crime) {
-            mRecipe = crime;
+        public void bind(BaseRecipe recipe) {
+            mRecipe = recipe;
             mTitleTextView.setText(mRecipe.getTitle());
+            if(mRecipe.getLastCreated()!=null) {
+                mCreatedTextView.setText(mRecipe.getLastCreated().toString());
+            }
+            if(!mRecipe.isCookable()){
+                mMakeButton.setEnabled(false);
+                mMakeButton.setBackgroundColor(Color.RED);
+            }else{
+                mMakeButton.setEnabled(true);
+                mMakeButton.setBackgroundColor(Color.GREEN);
+            }
         }
     }
     private class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
@@ -135,7 +134,6 @@ public class KitchenFragment extends Fragment {
         @Override
         public RecipeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-
             return new RecipeHolder(layoutInflater, parent);
         }
 
@@ -145,8 +143,8 @@ public class KitchenFragment extends Fragment {
         }
         @Override
         public void onBindViewHolder(RecipeHolder holder, int position) {
-            BaseRecipe crime = mRecipes.get(position);
-            holder.bind(crime);
+            BaseRecipe recipe = mRecipes.get(position);
+            holder.bind(recipe);
         }
     }
 }

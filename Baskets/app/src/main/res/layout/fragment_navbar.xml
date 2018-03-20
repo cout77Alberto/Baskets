@@ -13,7 +13,6 @@
         android:maxWidth="90dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:onClick="onClick"
         android:contentDescription="@string/inventory_button_description"/>
     <ImageButton
         android:id="@+id/map_ib"
@@ -23,7 +22,6 @@
         android:maxWidth="90dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:onClick="onClick"
         android:contentDescription="@string/map_button_description"/>
     <ImageButton
         android:id="@+id/trades_ib"
@@ -33,7 +31,6 @@
         android:maxWidth="90dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:onClick="onClick"
         android:contentDescription="@string/trades_button_description"/>
     <ImageButton
         android:id="@+id/kitchen_ib"
@@ -43,6 +40,5 @@
         android:maxWidth="90dp"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:onClick="onClick"
         android:contentDescription="@string/kitchen_button_description"/>
 </LinearLayout>
