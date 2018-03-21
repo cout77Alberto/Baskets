@@ -15,6 +15,7 @@ public class water extends BaseFood {
         super(context);
 
         AddTag("fluid");
+        SetMaxStackSize(mContext.getResources().getInteger(R.integer.stack_large));
         SetCalories(mContext.getResources().getInteger(R.integer.calories_medium));
         SetDaysToExpire(mContext.getResources().getInteger(R.integer.expiration_days_long));
     }

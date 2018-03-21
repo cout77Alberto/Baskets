@@ -5,7 +5,7 @@ import android.util.Log;
 
 import java.lang.reflect.Constructor;
 
-import edu.osu.baskets.foods.IFoodItem;
+import edu.osu.baskets.foods.IFood;
 
 /**
  * Created by Alberto on 2/28/2018.
@@ -40,16 +40,16 @@ public class FoodConstructor {
         if (constr == null) { Log.d(TAG, ">> WARNING: FoodConstructor for '" + prefab + "' has null value for field 'constr'."); }
     }
 
-    public IFoodItem Make() {
-        IFoodItem item = null;
+    public IFood Make() {
+        IFood item = null;
         try {
-            item = (IFoodItem) constr.newInstance(mContext);
+            item = (IFood) constr.newInstance(mContext);
             item.SetPrefab(prefab);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (item == null) { Log.d(TAG, ">> WARNING: Created null IFoodItem."); }
+        if (item == null) { Log.d(TAG, ">> WARNING: Created null IFood."); }
         return  item;
     }
 }

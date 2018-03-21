@@ -1,16 +1,11 @@
 package edu.osu.baskets.foods;
 
-import android.content.Context;
-
-import java.util.LinkedList;
-import java.util.List;
-
 /**
  * Created by Alberto on 2/26/2018.
  */
 
-//Make IFoodItem extend "Taggable"?
-public interface IFoodItem {
+//Make IFood extend "Taggable"?
+public interface IFood {
     public void AddTag(String tag);
 
     public void SetPrefab(String pref);
@@ -22,12 +17,19 @@ public interface IFoodItem {
     public void SetCalories(int calories);
     public int GetCalories();
 
+    public void SetMaxStackSize(int maxStackSize);
+    public int GetMaxStackSize();
+    public void SetStackSize(int stackSize);
+    public void ClearStackSize();
     public void AddToStackSize(int numToAdd);
     public void RemoveFromStackSize(int numToRemove);
     public int GetStackSize();
+    public boolean IsEmpty();
 
     public void SetDaysToExpire(int days);
+    public void AgeByDays(int days);
     public int GetDaysToExpire();
+    public boolean IsExpired();
 
     public void onAcquired(String acquirer);
 
@@ -35,4 +37,6 @@ public interface IFoodItem {
     public void onPostEaten(String eater);
 
     public void onExpired();
+
+    public IFood Clone();
 }

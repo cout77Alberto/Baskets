@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="spoilage_combination_thresh">0.2</string>
+
     <integer name="expiration_days_default">5</integer>
     <integer name="expiration_days_long">14</integer>
 
     <integer name="calories_small">5</integer>
     <integer name="calories_medium">10</integer>
     <integer name="calories_large">20</integer>
+
+    <integer name="stack_small">10</integer>
+    <integer name="stack_medium">20</integer>
+    <integer name="stack_large">40</integer>
+
+    <integer name="basket_capacity">9</integer>
+    <integer name="fridge_capacity">9</integer>
 </resources>

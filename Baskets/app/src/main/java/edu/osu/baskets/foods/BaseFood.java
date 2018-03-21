@@ -1,10 +1,12 @@
 package edu.osu.baskets.foods;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.osu.baskets.FoodUtils;
 import edu.osu.baskets.R;
 
 /**
@@ -12,71 +14,101 @@ import edu.osu.baskets.R;
  */
 
 //TODO: Make FoodItem an interface, then a "BaseFood"
-public class BaseFood implements IFoodItem {
+public class BaseFood implements IFood {
     protected Context mContext;
-    protected String prefab;
-    protected String name;
-    protected String description;
-    protected int calories;
-    protected int stackSize;
-    protected int daysToExpiration;
-    protected List<String> tags;
+    protected String mPrefab;
+    protected String mName;
+    protected String mDescription;
+    protected int mCalories;
+    protected int mStackSize;
+    protected int mMaxStackSize;
+    protected int mDaysToExpiration;
+    protected List<String> mTags;
+    private String TAG = "BaseFood";
 
     public BaseFood(Context context){
         mContext = context;
-        prefab = "";
-        name = "";
-        description = "";
-        calories = 0;
-        stackSize = 1;
-        daysToExpiration = context.getResources().getInteger(R.integer.expiration_days_default);
-        tags = new LinkedList<>();
+        mPrefab = "";
+        mName = "";
+        mDescription = "";
+        mCalories = 0;
+        mStackSize = 1;
+        mDaysToExpiration = context.getResources().getInteger(R.integer.expiration_days_default);
+        mTags = new LinkedList<>();
     }
 
     public void AddTag(String tag) {
-        tags.add(tag);
+        mTags.add(tag);
     }
 
-    public void SetPrefab(String pref) { prefab = pref; }
-    public String GetPrefab() { return prefab; }
+    public void SetPrefab(String pref) { mPrefab = pref; }
+    public String GetPrefab() { return mPrefab; }
 
     public String GetName() {
-        return mContext.getString(mContext.getResources().getIdentifier(prefab, "string", "edu.osu.baskets"));
+        return mContext.getString(mContext.getResources().getIdentifier(mPrefab, "string", "edu.osu.baskets"));
     }
     public String GetDescription() {
-        return mContext.getString(mContext.getResources().getIdentifier(prefab+"_desc", "string", "edu.osu.baskets"));
+        return mContext.getString(mContext.getResources().getIdentifier(mPrefab +"_desc", "string", "edu.osu.baskets"));
     }
 
     public void SetCalories(int calories) {
-        this.calories = calories;
+        this.mCalories = calories;
     }
     public int GetCalories() {
-        return calories;
+        return mCalories;
     }
 
+    public void SetMaxStackSize(int maxStackSize) { mMaxStackSize = maxStackSize; }
+    public int GetMaxStackSize() { return mMaxStackSize; }
+    public void SetStackSize(int stackSize) {
+        if (stackSize > mMaxStackSize) {
+            Log.e(TAG, String.format("Attempted to exceed max stack size, %d, of prefab '%s'", mMaxStackSize, mPrefab));
+            stackSize = mMaxStackSize;
+        }
+        mStackSize = stackSize;
+    }
+    public void ClearStackSize() { mStackSize = 0; }
     public void AddToStackSize(int numToAdd) {
-        stackSize += numToAdd;
+        mStackSize += numToAdd;
     }
     public void RemoveFromStackSize(int numToRemove) {
-        stackSize -= numToRemove;
+        mStackSize -= numToRemove;
     }
     public int GetStackSize() {
-        return stackSize;
+        return mStackSize;
     }
+    public boolean IsEmpty() { return mStackSize == 0; }
 
     public void SetDaysToExpire(int days) {
-        daysToExpiration = days;
+        mDaysToExpiration = days;
+        if (mDaysToExpiration <= 0) {
+            onExpired();
+        }
+    }
+    public void AgeByDays(int days) {
+        mDaysToExpiration -= days;
+        if (mDaysToExpiration <= 0) {
+            onExpired();
+        }
     }
     public int GetDaysToExpire() {
-        return daysToExpiration;
+        return mDaysToExpiration;
     }
+    public boolean IsExpired() { return mDaysToExpiration == 0; }
 
     public void onAcquired(String acquirer) { }
 
     public void onEaten(String eater) {
-        //eater.calorieScore += calories;
+        //eater.calorieScore += mCalories;
     }
     public void onPostEaten(String eater) { }
 
     public void onExpired() { }
+
+    public IFood Clone() {
+        IFood clone = FoodUtils.Spawn(this.GetPrefab());
+        clone.SetStackSize(mStackSize);
+        clone.SetDaysToExpire(mDaysToExpiration);
+        return clone;
+    }
 }

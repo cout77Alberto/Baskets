@@ -16,6 +16,7 @@ public class strawberries extends BaseFood {
         super(context);
 
         AddTag("fruit");
+        SetMaxStackSize(mContext.getResources().getInteger(R.integer.stack_large));
         SetCalories(mContext.getResources().getInteger(R.integer.calories_medium));
     }
 

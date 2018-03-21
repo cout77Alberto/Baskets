@@ -18,6 +18,7 @@ import edu.osu.baskets.recipes.CookingHistory;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private Inventory mInventory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,26 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mainToolbar);
 
         FoodUtils.PopulateConstructors(this);
+        mInventory = new Inventory(this);
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",7));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("water"));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",4));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",34));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",35));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",35));
+
+        mInventory.MoveToFridge(0);
+        mInventory.MoveToFridge(1);
+
+        mInventory.RemoveItem("water", 1);
+        mInventory.RemoveItem("strawberries", 2);
+        mInventory.RemoveItem("strawberries", 3);
+        mInventory.RemoveItem("strawberries", 35);
 
         android.app.FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.navbar_container);
