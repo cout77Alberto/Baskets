@@ -60,22 +60,22 @@ public class CookingHistory {
         InputStream  inputStream = null;
         try {
             inputStream = context.openFileInput("CookingHistory.txt");
+            Scanner scanner = new Scanner(inputStream);
+            mRecipes.clear();
+            while(scanner.hasNext()) {
+                String recipeData = scanner.nextLine();
+                int i = recipeData.indexOf(':');
+                Date date = new Date();
+                date.setTime(new Long(recipeData.substring(i + 1, recipeData.length()-1)));
+                BaseRecipe recipe = new BaseRecipe();
+                recipe.setTitle(recipeData.substring(1, i));
+                recipe.setLastCreated(date);
+                mRecipes.add(recipe);
+            }
         }catch (Exception e){
-            e.printStackTrace();
             Log.d(TAG, "no file for cooking history read "+e.getMessage());
         }
-        Scanner scanner = new Scanner(inputStream);
-        mRecipes.clear();
-        while(scanner.hasNext()) {
-               String recipeData = scanner.nextLine();
-               int i = recipeData.indexOf(':');
-               Date date = new Date();
-               date.setTime(new Long(recipeData.substring(i + 1, recipeData.length()-1)));
-               BaseRecipe recipe = new BaseRecipe();
-               recipe.setTitle(recipeData.substring(1, i));
-               recipe.setLastCreated(date);
-               mRecipes.add(recipe);
-        }
+
     }
 
     public void saveToFile(Context context) {
