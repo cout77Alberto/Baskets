@@ -36,19 +36,19 @@ public class MainActivity extends AppCompatActivity {
         mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",34));
         mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",35));
         mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
         mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",35));
 
         mInventory.MoveToFridge(0);
         mInventory.MoveToFridge(1);
+        mInventory.MoveToFridge(3);
+        mInventory.MoveToFridge(4);
 
         mInventory.RemoveItem("water", 1);
-        mInventory.RemoveItem("strawberries", 2);
-        mInventory.RemoveItem("strawberries", 3);
         mInventory.RemoveItem("strawberries", 35);
+        mInventory.RemoveItem("strawberries", 10);
+        mInventory.RemoveItem("strawberries", 5);
+        mInventory.MoveToBasket(3);
+        mInventory.MoveToBasket(2);
 
         android.app.FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.navbar_container);

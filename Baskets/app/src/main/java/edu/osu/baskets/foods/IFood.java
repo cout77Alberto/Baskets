@@ -25,6 +25,7 @@ public interface IFood {
     public void RemoveFromStackSize(int numToRemove);
     public int GetStackSize();
     public boolean IsEmpty();
+    public boolean IsFull();
 
     public void SetDaysToExpire(int days);
     public void AgeByDays(int days);
