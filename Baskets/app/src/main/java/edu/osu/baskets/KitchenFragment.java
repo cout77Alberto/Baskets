@@ -1,6 +1,7 @@
 package edu.osu.baskets;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import java.util.List;
 import edu.osu.baskets.recipes.BaseRecipe;
 import edu.osu.baskets.recipes.CookingHistory;
 import edu.osu.baskets.recipes.RecipeBook;
+import edu.osu.baskets.recipes.RecipeInfoActivity;
 
 /**
  * Created by Alberto on 2/19/2018.
@@ -92,6 +94,14 @@ public class KitchenFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_recipe, parent, false));
             mCreatedTextView = (TextView) itemView.findViewById(R.id.created_text);
             mTitleTextView = (TextView) itemView.findViewById(R.id.recipe_title);
+            mTitleTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RecipeInfoActivity.setRecipe(mRecipe);
+                    Intent intent = new Intent(getActivity(), RecipeInfoActivity.class);
+                    startActivity(intent);
+                }
+            });
             mMakeButton = (Button) itemView.findViewById(R.id.make_button);
             mMakeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
