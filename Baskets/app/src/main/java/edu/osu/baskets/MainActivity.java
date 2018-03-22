@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mainToolbar);
 
         FoodUtils.PopulateConstructors(this);
-        mInventory = new Inventory(this);
+        mInventory = Inventory.get(this);
         mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",7));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("water"));
+        mInventory.AddItemToBasket(FoodUtils.Spawn("water", 10));
         mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",4));
         mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",34));
         mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",35));
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mInventory.MoveToFridge(0);
         mInventory.MoveToFridge(1);
 
-        mInventory.RemoveItem("water", 1);
+        //mInventory.RemoveItem("water", 1);
         mInventory.RemoveItem("strawberries", 2);
         mInventory.RemoveItem("strawberries", 3);
         mInventory.RemoveItem("strawberries", 35);

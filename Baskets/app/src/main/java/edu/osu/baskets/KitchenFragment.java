@@ -88,7 +88,6 @@ public class KitchenFragment extends Fragment {
         private TextView mTitleTextView, mCreatedTextView;
         private Button mMakeButton;
         private BaseRecipe mRecipe;
-        private Date created=null;
         public RecipeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_recipe, parent, false));
             mCreatedTextView = (TextView) itemView.findViewById(R.id.created_text);
@@ -99,6 +98,7 @@ public class KitchenFragment extends Fragment {
                 public void onClick(View v) {
                     if(mRecipe!=null) {
                         mRecipe.make(getActivity());
+                        updateUI();
                     }
                 }
             });
@@ -115,7 +115,7 @@ public class KitchenFragment extends Fragment {
             if(mRecipe.getLastCreated()!=null) {
                 mCreatedTextView.setText(mRecipe.getLastCreated().toString());
             }
-            if(!mRecipe.isCookable()){
+            if(!mRecipe.isCookable(getActivity())){
                 mMakeButton.setEnabled(false);
                 mMakeButton.setBackgroundColor(Color.RED);
             }else{

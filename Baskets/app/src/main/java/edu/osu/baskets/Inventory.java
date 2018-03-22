@@ -19,8 +19,15 @@ public class Inventory {
     private Container mFridge;
     private RecipeBook mRecipes;
     private String TAG = "Inventory";
+    private static Inventory sInventory;
 
-    public Inventory(Context context) {
+    public static Inventory get(Context context){
+        if(sInventory==null){
+           sInventory = new Inventory(context);
+        }
+        return sInventory;
+    }
+    private Inventory(Context context) {
         mContext = context;
         int basketSize = mContext.getResources().getInteger(R.integer.basket_capacity);
         int fridgeSize = mContext.getResources().getInteger(R.integer.fridge_capacity);

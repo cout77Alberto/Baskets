@@ -22,11 +22,7 @@ public class RecipeBook {
 
     private RecipeBook(Context context) {
         mRecipes = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            BaseRecipe recipe = new BaseRecipe();
-            recipe.setTitle("Recipe #" + i);
-            mRecipes.add(recipe);
-        }
+        mRecipes.add(new StrawberryShakeRecipe(context));
     }
 
     public void share(){}

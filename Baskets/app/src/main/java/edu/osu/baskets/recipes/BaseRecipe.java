@@ -5,6 +5,8 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Date;
 
+import edu.osu.baskets.Inventory;
+import edu.osu.baskets.R;
 import edu.osu.baskets.foods.BaseFood;
 
 /**
@@ -12,9 +14,10 @@ import edu.osu.baskets.foods.BaseFood;
  */
 
 public class BaseRecipe {
-    private int calories;
-    private String title = "Strawberry Shake";
+    protected int calories;
+    protected String title;
     ArrayList<BaseFood> requiredFoods = new ArrayList<BaseFood>();
+    ArrayList<Integer> requiredAmounts = new ArrayList<>();
 
     public Date getLastCreated() {
         if(LastCreated==null){
@@ -32,14 +35,19 @@ public class BaseRecipe {
     private Date LastCreated;
     //TODO consider amount
 
-    public Boolean isCookable(){
-        boolean cookable = false;
+    public Boolean isCookable(Context context){
+        boolean cookable = false, missingReqs=false;
         //TODO needs to check for necessary food items
-        int i = Integer.parseInt(title.substring(8));
-        if(i%2==0){
+        for(int i=0;i<requiredFoods.size()&&!missingReqs;i++){
+            if(!Inventory.get(context).HasItem(requiredFoods.get(i).GetPrefab(), requiredAmounts.get(i))){
+                missingReqs = true;
+                cookable = false;
+            }
+        }
+        if(!missingReqs){
             cookable = true;
         }
-        return true;
+        return cookable;
     }
 
     public String getTitle(){
@@ -50,6 +58,12 @@ public class BaseRecipe {
     }
     public void make(Context context){
         //add calories to account
+        //remove food from inventory
+        Inventory inventory = Inventory.get(context);
+        for (int i = 0; i < requiredFoods.size(); i++) {
+            inventory.RemoveItem(requiredFoods.get(i).GetPrefab(),requiredAmounts.get(i));
+        }
+        //add to history
         CookingHistory.get(context).add(this.copy());
     }
     public BaseRecipe copy(){
