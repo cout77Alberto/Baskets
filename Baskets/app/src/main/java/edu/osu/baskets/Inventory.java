@@ -36,9 +36,10 @@ public class Inventory {
     }
 
     public ArrayList<IFood> GetAllFoodItems() {
-        //TODO
-        Log.e(TAG, "Method not implemented.");
-        return new ArrayList<>();
+        ArrayList<IFood> allFood = new ArrayList<>(mBasket.GetSize() + mFridge.GetSize());
+        allFood.addAll(mBasket.GetSlots());
+        allFood.addAll(mFridge.GetSlots());
+        return allFood;
     }
     public ArrayList<BaseRecipe> GetRecipes() {
         return mRecipes.getRecipes();
@@ -49,23 +50,24 @@ public class Inventory {
         return (sum >= amount);
     }
 
+    // returns how many will not have room for
     public int HasRoomInBasketFor(String prefab, int amount) {
-        return mBasket.HasRoomFor(prefab, amount);
+        return mBasket.CountOverflowIfAdd(prefab, amount);
     }
 
-    // TODO: automatically add item to fridge if doesn't fit in basket
-    public boolean AddItemToBasket(IFood item) {
+    // returns item stack that doesn't fit (non-null)
+    public IFood AddItemToBasket(IFood item) {
+        int originalStack = item.GetStackSize();
         IFood overflow = mBasket.AddItem(item);
         if (!overflow.IsEmpty()) {
-            Log.w(TAG, "Could not fit all items in Basket.");
-            return false;
+            Log.w(TAG, "Could not fit all items in Basket... Trying Fridge.");
+            overflow = mFridge.AddItem(overflow);
         }
-        return true;
+        if (!overflow.IsEmpty()) {
+            Log.w(TAG, String.format("Could not fit [%d] out of [%d] items in Basket or Fridge.", overflow.GetStackSize(), originalStack));
+        }
+        return overflow;
     }
-
-    /*TODO: public boolean AddItemToBasketInSlot(IFood item, int slot) {
-
-    }*/
 
     public void MoveToBasket(int slotInFridge) {
         IFood item = mFridge.RemoveItemFromSlot(slotInFridge);
@@ -84,8 +86,7 @@ public class Inventory {
         }
     }
 
-    // TODO: refactor RemoveItem to include cases where multiple slots have same item
-    // NOTE: assumes restriction that only one slot in a container can have a specific item
+    // returns removed item, with stackSize = amount
     public IFood RemoveItem(String prefab, int amount) {
         //asserts
         if (amount > mBasket.CountItem(prefab) + mFridge.CountItem(prefab)) { throw new AssertionError(); }
@@ -106,14 +107,27 @@ public class Inventory {
         }
     }
 
-    //TODO: SwitchSlots(int slotFrom, int slotTo, boolean forBasket)
+    public void SwitchSlots(int slotFrom, boolean fromBasket, int slotTo, boolean toBasket) {
+        Container fromContainer;
+        Container toContainer;
+        if (fromBasket) { fromContainer = mBasket; } else { fromContainer = mFridge; }
+        if (toBasket) { toContainer = mBasket; } else { toContainer = mFridge; }
+
+        IFood fromItem = fromContainer.RemoveItemFromSlot(slotFrom);
+        IFood toItem = toContainer.RemoveItemFromSlot(slotTo);
+        fromContainer.ForceItemInSlot(toItem, slotFrom);
+        toContainer.ForceItemInSlot(fromItem, slotTo);
+    }
 
     public void AgeByDays(int daysPassed) {
         mBasket.AgeItemsByDays(daysPassed);
     }
 
-    public int CalculateRecipePoints() {
-
-        return 0;
-    }
+    /*public int CalculateRecipePoints() {
+        int sum = 0;
+        for (BaseRecipe recipe : mRecipes.getRecipes()) {
+            sum += recipe.getPoints();
+        }
+        return sum;
+    }*/
 }

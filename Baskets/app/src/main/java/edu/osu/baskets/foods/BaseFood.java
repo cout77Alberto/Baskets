@@ -78,6 +78,7 @@ public class BaseFood implements IFood {
         return mStackSize;
     }
     public boolean IsEmpty() { return mStackSize == 0; }
+    public boolean IsFull() { return mStackSize == mMaxStackSize; }
 
     public void SetDaysToExpire(int days) {
         mDaysToExpiration = days;
