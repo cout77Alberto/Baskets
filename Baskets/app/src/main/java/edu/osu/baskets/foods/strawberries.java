@@ -9,7 +9,6 @@ import edu.osu.baskets.R;
  * Created by Alberto on 2/26/2018.
  */
 
-//TODO: should strawberries extend FOODITEM { } ???
 public class strawberries extends BaseFood {
 
     public strawberries(Context context){

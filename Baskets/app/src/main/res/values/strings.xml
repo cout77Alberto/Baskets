@@ -6,12 +6,12 @@
     <string name="kitchen_button_description">My Kitchen</string>
 
     <string-array name="prefablist">
-        <item>strawberries</item>
-        <item>water</item>
-        <item>sugar</item>
-        <item>piecrust</item>
         <item>gelatin</item>
+        <item>piecrust</item>
         <item>potatoes</item>
+        <item>strawberries</item>
+        <item>sugar</item>
+        <item>water</item>
     </string-array>
 
     <string name="account_menu_item">Account</string>

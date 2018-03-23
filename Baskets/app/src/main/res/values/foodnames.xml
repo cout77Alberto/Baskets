@@ -1,10 +1,9 @@
 <resources>
-    <string name="strawberries">strawberries</string>
-    <string name="water">water</string>
-    <string name="sugar">Sugar</string>
-    <string name="piecrust">Pie Crust</string>
     <string name="gelatin">Gelatin</string>
+    <string name="piecrust">Pie Crust</string>
     <string name="potatoes">Potatoes</string>
-
+    <string name="strawberries">Strawberries</string>
+    <string name="sugar">Sugar</string>
+    <string name="water">Water</string>
 
 </resources>
