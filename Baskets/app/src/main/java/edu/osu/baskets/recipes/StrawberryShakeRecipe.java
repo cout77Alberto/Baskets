@@ -2,6 +2,7 @@ package edu.osu.baskets.recipes;
 
 import android.content.Context;
 
+import edu.osu.baskets.FoodUtils;
 import edu.osu.baskets.R;
 import edu.osu.baskets.foods.BaseFood;
 import edu.osu.baskets.foods.IFood;
@@ -15,10 +16,8 @@ import edu.osu.baskets.foods.water;
 public class StrawberryShakeRecipe extends BaseRecipe {
     public StrawberryShakeRecipe(Context context){
         BaseFood strawberries, water;
-        strawberries = new strawberries(context);
-        strawberries.SetPrefab(context.getString(R.string.strawberries));
-        water = new water(context);
-        water.SetPrefab(context.getString(R.string.water));
+        strawberries = (BaseFood) FoodUtils.Spawn("strawberries");
+        water = (BaseFood) FoodUtils.Spawn("water");
         requiredFoods.add(strawberries);
         requiredAmounts.add(5);
         requiredFoods.add(water);
