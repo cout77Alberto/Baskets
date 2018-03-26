@@ -81,11 +81,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.account:
-                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-                startActivity(intent);
+                Intent accountIntent = new Intent(MainActivity.this, AccountActivity.class);
+                startActivity(accountIntent);
                 return true;
             case R.id.leader:
-                // start leader activity
+                Intent leaderIntent = new Intent(MainActivity.this, LeaderActivity.class);
+                startActivity(leaderIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

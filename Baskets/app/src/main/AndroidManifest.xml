@@ -10,9 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".MainActivity" />
-        <activity
-            android:name=".AccountActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".AccountActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".LeaderActivity"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
