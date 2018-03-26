@@ -19,4 +19,8 @@
 
     <string name="splash_screen">Baskets</string>
 
+    <string name="account_creation_welcome">Welcome to Baskets! Enter a username for your account below and click Save to begin.</string>
+    <string name="account_creation_name_hint">Enter name here!</string>
+    <string name="save_button">Save</string>
+
 </resources>

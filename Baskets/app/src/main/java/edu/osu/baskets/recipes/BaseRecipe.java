@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.Date;
 
+import edu.osu.baskets.AccountSingleton;
 import edu.osu.baskets.Inventory;
 import edu.osu.baskets.R;
 import edu.osu.baskets.foods.BaseFood;
@@ -58,6 +59,9 @@ public class BaseRecipe {
     }
     public void make(Context context){
         //add calories to account
+        AccountSingleton account = AccountSingleton.get();
+        account.addCalories(calories);
+        account.pushAccount();
         //remove food from inventory
         Inventory inventory = Inventory.get(context);
         for (int i = 0; i < requiredFoods.size(); i++) {

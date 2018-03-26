@@ -1,18 +1,32 @@
 package edu.osu.baskets;
 
-import java.util.UUID;
+import android.content.Context;
+import android.util.Log;
+
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.Scanner;
+
+import edu.osu.baskets.recipes.BaseRecipe;
 
 /**
  * Model class for user account.
  */
 
 public class Account {
-    private String mName;
-    private UUID mID;
+    private static final String TAG = "Account";
 
-    public Account(String name) {
+    private String mName;
+    private String mId;
+    private int mCalories;
+
+    public Account() {}
+
+    public Account(String name, String id) {
         mName = name;
-        mID = UUID.randomUUID();
+        mId = id;
+        mCalories = 0;
     }
 
     public String getName() {
@@ -23,8 +37,20 @@ public class Account {
         mName = name;
     }
 
-    public UUID getID() {
-        return mID;
+    public String getId() {
+        return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
+    }
+
+    public int getCalories() {
+        return mCalories;
+    }
+
+    public void setCalories(int calories) {
+        mCalories = calories;
     }
 
     @Override
@@ -34,6 +60,40 @@ public class Account {
 
         Account account = (Account) o;
 
-        return mID.equals(account.mID);
+        return mId.equals(account.mId);
+    }
+
+    static boolean localUserIdExists(Context context) {
+        try {
+            context.openFileInput("UserId.txt");
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    static void saveUserId(Context context, String userId) {
+        FileOutputStream outputStream;
+        try{
+            outputStream = context.openFileOutput("UserId.txt",Context.MODE_PRIVATE);
+            outputStream.write(userId.getBytes());
+            outputStream.close();
+            Log.d(TAG, "File was written to");
+        }catch (Exception e){
+            Log.d(TAG, "No file for userId write");
+        }
+    }
+
+    static String readUserId(Context context) {
+        InputStream  inputStream;
+        String userId = "";
+        try {
+            inputStream = context.openFileInput("UserId.txt");
+            Scanner scanner = new Scanner(inputStream);
+            userId = scanner.nextLine();
+        }catch (Exception e){
+            Log.d(TAG, "No file for userId read "+e.getMessage());
+        }
+        return userId;
     }
 }

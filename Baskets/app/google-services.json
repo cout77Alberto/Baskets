@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "445024947424",
+    "firebase_url": "https://baskets-df0a2.firebaseio.com",
+    "project_id": "baskets-df0a2",
+    "storage_bucket": "baskets-df0a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:445024947424:android:3ab5d3c7be2ea0ae",
+        "android_client_info": {
+          "package_name": "edu.osu.baskets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "445024947424-ev1tvvt81489149jjkafnf8sn15ae42i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.osu.baskets",
+            "certificate_hash": "dcdb5e6486bd60e9495c1f0f5740c25b0f6bd55f"
+          }
+        },
+        {
+          "client_id": "445024947424-5stu5eragtab3ojg78kejg5286emqd0i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxm1P8Hdni8AhRicSaQdumNMuDd81Dc0Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "445024947424-5stu5eragtab3ojg78kejg5286emqd0i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

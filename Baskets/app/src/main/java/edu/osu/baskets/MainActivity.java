@@ -12,13 +12,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.osu.baskets.recipes.CookingHistory;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private DatabaseReference mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseInstance;
+
     private static final String TAG = "MainActivity";
     private Inventory mInventory;
+    private String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
+
+        mFirebaseInstance = FirebaseDatabase.getInstance();
 
         FoodUtils.PopulateConstructors(this);
         mInventory = Inventory.get(this);

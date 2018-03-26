@@ -3,10 +3,17 @@ package edu.osu.baskets;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Splash screen fragment.
@@ -43,8 +50,35 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                     // do nothing
                 } finally {
                     getActivity().finish();
-                    //TODO: Check if user has account, if not, send to account creation activity
-                    startActivity(new Intent("edu.osu.baskets.Main"));
+                    // Check if user has account, if not, send to account creation activity
+                    if (Account.localUserIdExists(getActivity())) {
+                        // get userId from storage
+                        String userId = Account.readUserId(getActivity());
+                        // firebase stuff to get account from db
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance()
+                                .getReference("users").child(userId);
+                        ValueEventListener accountListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                Account account = dataSnapshot.getValue(Account.class);
+                                AccountSingleton accountSingleton = AccountSingleton.get();
+                                accountSingleton.setAccount(account);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.w("Splash", "Error reading from firebase"
+                                        , databaseError.toException());
+                            }
+                        };
+                        mDatabase.addListenerForSingleValueEvent(accountListener);
+
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Intent intent = new Intent(getActivity(), AccountCreationActivity.class);
+                        startActivity(intent);
+                    }
                 }
             }
         };

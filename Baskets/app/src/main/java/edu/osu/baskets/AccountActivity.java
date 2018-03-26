@@ -6,8 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class AccountActivity extends AppCompatActivity {
+
+    private TextView mAccountName;
+    private TextView mAccountCalories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,13 @@ public class AccountActivity extends AppCompatActivity {
         setSupportActionBar(mainToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        AccountSingleton accountSingleton = AccountSingleton.get();
+
+        mAccountName = (TextView) findViewById(R.id.account_name);
+        mAccountName.setText("Name: " + accountSingleton.getName());
+        mAccountCalories = (TextView) findViewById(R.id.account_calories);
+        mAccountCalories.setText("Calories: " + accountSingleton.getCalories());
     }
 
     @Override
