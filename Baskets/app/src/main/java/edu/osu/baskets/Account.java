@@ -5,6 +5,7 @@ import android.util.Log;
 
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -95,5 +96,14 @@ public class Account {
             Log.d(TAG, "No file for userId read "+e.getMessage());
         }
         return userId;
+    }
+
+    class SortByCalories implements Comparator<Account>
+    {
+        // Used for sorting in descending order of calories
+        public int compare(Account a, Account b)
+        {
+            return a.getCalories() - b.getCalories();
+        }
     }
 }
