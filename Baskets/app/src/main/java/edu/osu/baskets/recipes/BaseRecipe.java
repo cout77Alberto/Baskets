@@ -17,6 +17,7 @@ import edu.osu.baskets.foods.BaseFood;
 public class BaseRecipe {
     protected int calories;
     protected String title;
+    public String url="";
     ArrayList<BaseFood> requiredFoods = new ArrayList<BaseFood>();
     ArrayList<Integer> requiredAmounts = new ArrayList<>();
 
@@ -29,6 +30,9 @@ public class BaseRecipe {
         return LastCreated;
     }
 
+    public int getCalories(){
+        return calories;
+    }
     public void setLastCreated(Date lastCreated) {
         LastCreated = lastCreated;
     }

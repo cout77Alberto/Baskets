@@ -23,15 +23,7 @@
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:contentDescription="@string/map_button_description"/>
-    <ImageButton
-        android:id="@+id/trades_ib"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/trade_icon"
-        android:maxWidth="90dp"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/trades_button_description"/>
+
     <ImageButton
         android:id="@+id/kitchen_ib"
         android:layout_width="wrap_content"

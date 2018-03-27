@@ -30,17 +30,6 @@ public class NavbarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_navbar, container, false);
 
-        mTradeButton = (ImageButton) v.findViewById(R.id.trades_ib);
-        mTradeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Fragment fragment;
-                FragmentTransaction transaction = getActivity().getFragmentManager().beginTransaction();
-                fragment = new TradesFragment();
-                transaction.replace(R.id.fragment_container, fragment);
-                transaction.commit();
-            }
-        });
         mInventoryButton = (ImageButton) v.findViewById(R.id.inventory_ib);
         mInventoryButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,7 @@ package edu.osu.baskets;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -97,9 +99,12 @@ public class KitchenFragment extends Fragment {
             mTitleTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    RecipeInfoActivity.setRecipe(mRecipe);
-                    Intent intent = new Intent(getActivity(), RecipeInfoActivity.class);
-                    startActivity(intent);
+                    Uri theUri = Uri.parse(mRecipe.url);
+                    Intent LaunchBrowserIntent =
+                            new Intent(Intent.ACTION_VIEW,
+                                    theUri);
+                    startActivity(
+                            LaunchBrowserIntent);
                 }
             });
             mMakeButton = (Button) itemView.findViewById(R.id.make_button);
@@ -109,6 +114,7 @@ public class KitchenFragment extends Fragment {
                     if(mRecipe!=null) {
                         mRecipe.make(getActivity());
                         updateUI();
+                        Toast.makeText(getActivity(),"Calories Increased by "+mRecipe.getCalories(),Toast.LENGTH_LONG).show();
                     }
                 }
             });
