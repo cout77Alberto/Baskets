@@ -95,7 +95,7 @@ public class LeaderActivity extends AppCompatActivity {
 
         public void bind(Account account, int position) {
             mAccount = account;
-            mRankView.setText("" + position);
+            mRankView.setText("" + (position + 1));
             mNameView.setText("Name: " + account.getName());
             // Note: setText on calories does weird things if string concat is removed
             mCaloriesView.setText("Calories: " + account.getCalories());
