@@ -97,13 +97,13 @@ public class Account {
         }
         return userId;
     }
+}
 
-    class SortByCalories implements Comparator<Account>
+class SortByCalories implements Comparator<Account>
+{
+    // Used for sorting in descending order of calories
+    public int compare(Account a, Account b)
     {
-        // Used for sorting in descending order of calories
-        public int compare(Account a, Account b)
-        {
-            return a.getCalories() - b.getCalories();
-        }
+        return b.getCalories() - a.getCalories();
     }
 }
