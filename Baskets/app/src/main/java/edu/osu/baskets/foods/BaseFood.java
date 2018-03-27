@@ -13,7 +13,6 @@ import edu.osu.baskets.R;
  * Created by Alberto on 2/26/2018.
  */
 
-//TODO: Make FoodItem an interface, then a "BaseFood"
 public class BaseFood implements IFood {
     protected Context mContext;
     protected String mPrefab;
@@ -23,6 +22,7 @@ public class BaseFood implements IFood {
     protected int mStackSize;
     protected int mMaxStackSize;
     protected int mDaysToExpiration;
+    protected int mShelfLife;
     protected List<String> mTags;
     private String TAG = "BaseFood";
 
@@ -33,7 +33,8 @@ public class BaseFood implements IFood {
         mDescription = "";
         mCalories = 0;
         mStackSize = 1;
-        mDaysToExpiration = context.getResources().getInteger(R.integer.expiration_days_default);
+        mShelfLife = context.getResources().getInteger(R.integer.shelf_life_default);
+        mDaysToExpiration = mShelfLife;
         mTags = new LinkedList<>();
     }
 
@@ -49,6 +50,9 @@ public class BaseFood implements IFood {
     }
     public String GetDescription() {
         return mContext.getString(mContext.getResources().getIdentifier(mPrefab +"_desc", "string", "edu.osu.baskets"));
+    }
+    public int GetImageResId() {
+        return mContext.getResources().getIdentifier(mPrefab, "drawable","edu.osu.baskets");
     }
 
     public void SetCalories(int calories) {
@@ -80,20 +84,35 @@ public class BaseFood implements IFood {
     public boolean IsEmpty() { return mStackSize == 0; }
     public boolean IsFull() { return mStackSize == mMaxStackSize; }
 
+    public void SetShelfLifeAndResetExpireCounter(int days) {
+        SetShelfLife(days);
+        mDaysToExpiration = mShelfLife;
+    }
+    public void SetShelfLife(int days) {
+        mShelfLife = days;
+        if (mShelfLife <= 0) {
+            onExpired();
+        } else if (mDaysToExpiration > days){
+            mDaysToExpiration = mShelfLife;
+        }
+    }
+    public int GetShelfLife() { return mShelfLife; }
     public void SetDaysToExpire(int days) {
         mDaysToExpiration = days;
         if (mDaysToExpiration <= 0) {
             onExpired();
+        } else if (mDaysToExpiration > mShelfLife) {
+            mDaysToExpiration = mShelfLife;
         }
+    }
+    public int GetDaysToExpire() {
+        return mDaysToExpiration;
     }
     public void AgeByDays(int days) {
         mDaysToExpiration -= days;
         if (mDaysToExpiration <= 0) {
             onExpired();
         }
-    }
-    public int GetDaysToExpire() {
-        return mDaysToExpiration;
     }
     public boolean IsExpired() { return mDaysToExpiration == 0; }
 
@@ -109,6 +128,7 @@ public class BaseFood implements IFood {
     public IFood Clone() {
         IFood clone = FoodUtils.Spawn(this.GetPrefab());
         clone.SetStackSize(mStackSize);
+        clone.SetShelfLife(mShelfLife);
         clone.SetDaysToExpire(mDaysToExpiration);
         return clone;
     }

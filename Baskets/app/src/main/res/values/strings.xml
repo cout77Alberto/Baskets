@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">Baskets</string>
-    <string name="inventory_button_description">My Basket</string>
-    <string name="map_button_description">The Market</string>
-    <string name="trades_button_description">My Trades</string>
-    <string name="kitchen_button_description">My Kitchen</string>
+
+    <string name="basket_name">Basket</string>
+    <string name="fridge_name">Fridge</string>
 
     <string-array name="prefablist">
         <item>gelatin</item>

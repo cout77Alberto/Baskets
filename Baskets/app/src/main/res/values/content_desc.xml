@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="inventory_button_description">My Basket</string>
+    <string name="map_button_description">The Market</string>
+    <string name="trades_button_description">My Trades</string>
+    <string name="kitchen_button_description">My Kitchen</string>
+
+    <string name="container_slot_description">A container slot</string>
+
+    <string name="basket_top_border_description">Top Border of My Basket</string>
+    <string name="basket_bottom_border_description">Bottom Border of My Basket</string>
+    <string name="fridge_top_border_description">Top Border of My Fridge</string>
+</resources>

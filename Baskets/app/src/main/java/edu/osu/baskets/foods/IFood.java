@@ -13,6 +13,7 @@ public interface IFood {
 
     public String GetName();
     public String GetDescription();
+    public int GetImageResId();
 
     public void SetCalories(int calories);
     public int GetCalories();
@@ -27,9 +28,12 @@ public interface IFood {
     public boolean IsEmpty();
     public boolean IsFull();
 
+    public void SetShelfLifeAndResetExpireCounter(int days);
+    public void SetShelfLife(int days);
+    public int GetShelfLife();
     public void SetDaysToExpire(int days);
-    public void AgeByDays(int days);
     public int GetDaysToExpire();
+    public void AgeByDays(int days);
     public boolean IsExpired();
 
     public void onAcquired(String acquirer);

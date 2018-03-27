@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mInventory.RemoveItem("strawberries", 2);
         mInventory.RemoveItem("strawberries", 3);
         mInventory.RemoveItem("strawberries", 35);
+        //mInventory.AddItemToBasket(FoodUtils.Spawn("gelatin", 2));
 
         android.app.FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.navbar_container);

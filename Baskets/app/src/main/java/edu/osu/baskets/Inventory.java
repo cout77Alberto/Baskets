@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.osu.baskets.foods.IFood;
 import edu.osu.baskets.recipes.BaseRecipe;
@@ -35,6 +36,12 @@ public class Inventory {
         mFridge = new Container(mContext, fridgeSize);
     }
 
+    public List<IFood> GetBasketItems() {
+        return mBasket.GetSlots();
+    }
+    public List<IFood> GetFridgeItems() {
+        return mFridge.GetSlots();
+    }
     public ArrayList<IFood> GetAllFoodItems() {
         ArrayList<IFood> allFood = new ArrayList<>(mBasket.GetSize() + mFridge.GetSize());
         allFood.addAll(mBasket.GetSlots());

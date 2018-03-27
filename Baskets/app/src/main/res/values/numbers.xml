@@ -2,7 +2,7 @@
 <resources>
     <string name="spoilage_combination_thresh">0.2</string>
 
-    <integer name="expiration_days_default">5</integer>
+    <integer name="shelf_life_default">5</integer>
     <integer name="expiration_days_long">14</integer>
 
     <integer name="calories_small">5</integer>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_food_thumbnail"
+        android:layout_width="@dimen/basket_slot_width"
+        android:layout_height="@dimen/basket_slot_width"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/gallery_thumb"
+        android:src="@drawable/basket_icon"
+        android:contentDescription="@string/container_slot_description"/>
+
+    <TextView
+        android:id="@+id/tv_stack_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:shadowColor="@android:color/background_light"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="13"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/stack_size_fontsize"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_food_thumbnail"
+        app:layout_constraintEnd_toEndOf="@+id/iv_food_thumbnail"
+        app:layout_constraintStart_toStartOf="@+id/iv_food_thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/iv_food_thumbnail" />
+
+    <ProgressBar
+        android:id="@+id/pb_expiration_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_food_thumbnail"
+        app:layout_constraintEnd_toEndOf="@+id/iv_food_thumbnail" />
+
+    <TextView
+        android:id="@+id/tv_days_to_expire"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:text="20"
+        android:textAlignment="center"
+        android:textSize="@dimen/days_to_expire_fontsize"
+        app:layout_constraintBottom_toBottomOf="@+id/pb_expiration_bar"
+        app:layout_constraintEnd_toStartOf="@+id/pb_expiration_bar"
+        app:layout_constraintStart_toStartOf="@+id/iv_food_thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/pb_expiration_bar" />
+
+
+</android.support.constraint.ConstraintLayout>
