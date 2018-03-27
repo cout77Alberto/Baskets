@@ -11,8 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="67dp"
+        android:layout_marginLeft="67dp"
         android:text="Name" />
 
     <TextView
@@ -20,8 +22,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="93dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginRight="67dp"
         android:text="Calories" />
 
 </RelativeLayout>
