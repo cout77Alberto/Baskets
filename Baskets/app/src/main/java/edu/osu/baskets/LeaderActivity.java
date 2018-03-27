@@ -84,16 +84,18 @@ public class LeaderActivity extends AppCompatActivity {
     }
 
     private class AccountHolder extends RecyclerView.ViewHolder {
-        private TextView mNameView, mCaloriesView;
+        private TextView mRankView, mNameView, mCaloriesView;
         private Account mAccount;
         public AccountHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_account, parent, false));
+            mRankView = (TextView) itemView.findViewById(R.id.account_rank);
             mNameView = (TextView) itemView.findViewById(R.id.account_name);
             mCaloriesView = (TextView) itemView.findViewById(R.id.account_calories);
         }
 
-        public void bind(Account account) {
+        public void bind(Account account, int position) {
             mAccount = account;
+            mRankView.setText("" + position);
             mNameView.setText("Name: " + account.getName());
             // Note: setText on calories does weird things if string concat is removed
             mCaloriesView.setText("Calories: " + account.getCalories());
@@ -121,7 +123,7 @@ public class LeaderActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(LeaderActivity.AccountHolder holder, int position) {
             Account account = mAccounts.get(position);
-            holder.bind(account);
+            holder.bind(account, position);
         }
     }
 
