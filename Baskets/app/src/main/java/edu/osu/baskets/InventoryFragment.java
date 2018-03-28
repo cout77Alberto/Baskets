@@ -87,7 +87,7 @@ public class InventoryFragment extends Fragment {
                 if (item.GetImageResId() != 0) {
                     mThumbnailImageView.setImageResource(item.GetImageResId());
                 } else {
-                    //mThumbnailImageView.setImageResource(android.R.drawable.btn_star_big_on);
+                    mThumbnailImageView.setImageResource(android.R.drawable.btn_star_big_on);
                 }
                 mStackSizeTextView.setText(String.format("%d", item.GetStackSize()));
                 mDaysToExpireTextView.setText(String.format("%d", item.GetDaysToExpire()));

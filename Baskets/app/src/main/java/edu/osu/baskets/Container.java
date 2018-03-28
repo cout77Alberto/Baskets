@@ -214,10 +214,13 @@ public class Container {
 
         IFood removed = FoodUtils.Spawn(prefab,0);
         for (int slot : findIndices(prefab, mSlots)) {
-            if (mSlots.get(slot).IsFull()) {
+            if (mSlots.get(slot).IsFull() && borrowCount > 0) {
                 //remove all needed items from the full stack
-                IFood splitItems = Split(mSlots.get(slot), borrowCount);
+                int splitAmount = borrowCount;
+                if (splitAmount > mSlots.get(slot).GetStackSize()) { splitAmount = mSlots.get(slot).GetStackSize(); }
+                IFood splitItems = Split(mSlots.get(slot), splitAmount);
                 CombineItems(removed, splitItems);
+                borrowCount -= splitAmount;
             } else if (fromSemiFullsCount > 0) {
                 //remove at most the number of items in the slot, decrement counter
                 int splitAmount = fromSemiFullsCount;
