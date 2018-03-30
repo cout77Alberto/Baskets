@@ -6,8 +6,9 @@
     <string name="kitchen_button_description">My Kitchen</string>
 
     <string name="container_slot_description">A container slot</string>
+    <string name="slot_background_description">Slot background</string>
 
-    <string name="basket_top_border_description">Top Border of My Basket</string>
-    <string name="basket_bottom_border_description">Bottom Border of My Basket</string>
-    <string name="fridge_top_border_description">Top Border of My Fridge</string>
+    <string name="basket_background_description">Basket Background</string>
+    <string name="fridge_background_description">Fridge Background</string>
+    <string name="fridge_icicles_description">Icicles on Fridge</string>
 </resources>

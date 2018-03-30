@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -64,13 +65,15 @@ public class InventoryFragment extends Fragment {
         mFridgeRecycler.setAdapter(new FoodAdapter(fridgeSlots));
     }
 
-    private class FoodHolder extends RecyclerView.ViewHolder {
+    private class FoodHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mThumbnailImageView;
         private TextView mStackSizeTextView, mDaysToExpireTextView;
         private ProgressBar mExpirationProgressBar;
+        private IFood mSlot = null;
 
         public FoodHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.grid_item_food, parent, false));
+            itemView.setOnClickListener(this);
 
             mThumbnailImageView = itemView.findViewById(R.id.iv_food_thumbnail);
             mStackSizeTextView = itemView.findViewById(R.id.tv_stack_size);
@@ -80,24 +83,32 @@ public class InventoryFragment extends Fragment {
 
         public void bind(IFood item) {
             if (item != null) {
+                mSlot = item;
                 mStackSizeTextView.setVisibility(View.VISIBLE);
                 mDaysToExpireTextView.setVisibility(View.VISIBLE);
                 mExpirationProgressBar.setVisibility(View.VISIBLE);
 
                 if (item.GetImageResId() != 0) {
-                    mThumbnailImageView.setImageResource(item.GetImageResId());
+                    mThumbnailImageView.setBackgroundResource(item.GetImageResId());
                 } else {
-                    mThumbnailImageView.setImageResource(android.R.drawable.btn_star_big_on);
+                    mThumbnailImageView.setBackgroundResource(android.R.drawable.btn_star_big_on);
                 }
                 mStackSizeTextView.setText(String.format("%d", item.GetStackSize()));
                 mDaysToExpireTextView.setText(String.format("%d", item.GetDaysToExpire()));
                 mExpirationProgressBar.setMax(item.GetShelfLife());
                 mExpirationProgressBar.setProgress(item.GetDaysToExpire());
             } else {
-                mThumbnailImageView.setImageDrawable(null);
+                mThumbnailImageView.setBackground(null);
                 mStackSizeTextView.setVisibility(View.INVISIBLE);
                 mDaysToExpireTextView.setVisibility(View.INVISIBLE);
                 mExpirationProgressBar.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mSlot != null) {
+                Snackbar.make(getActivity().findViewById(R.id.inventory_coordinator), String.format("%s  [%d cal]", mSlot.GetName(), mSlot.GetCalories()), Snackbar.LENGTH_SHORT).show();
             }
         }
     }

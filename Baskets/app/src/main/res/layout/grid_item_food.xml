@@ -7,6 +7,19 @@
     android:layout_height="wrap_content">
 
     <ImageView
+        android:id="@+id/iv_slot_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="1"
+        android:contentDescription="@string/slot_background_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_food_thumbnail"
+        app:layout_constraintEnd_toEndOf="@+id/iv_food_thumbnail"
+        app:layout_constraintStart_toStartOf="@+id/iv_food_thumbnail"
+        app:layout_constraintTop_toTopOf="@+id/iv_food_thumbnail"
+        app:srcCompat="@drawable/beige_background" />
+
+    <ImageView
         android:id="@+id/iv_food_thumbnail"
         android:layout_width="@dimen/basket_slot_width"
         android:layout_height="@dimen/basket_slot_width"
@@ -16,7 +29,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/gallery_thumb"
-        android:src="@drawable/basket_icon"
         android:contentDescription="@string/container_slot_description"/>
 
     <TextView
@@ -56,6 +68,5 @@
         app:layout_constraintEnd_toStartOf="@+id/pb_expiration_bar"
         app:layout_constraintStart_toStartOf="@+id/iv_food_thumbnail"
         app:layout_constraintTop_toTopOf="@+id/pb_expiration_bar" />
-
 
 </android.support.constraint.ConstraintLayout>
