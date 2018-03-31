@@ -125,6 +125,15 @@ public class BaseFood implements IFood {
 
     public void onExpired() { }
 
+    @Override
+    public String toString() {
+        // data format: [prefab, stacksize, days-to-expire]
+        String data = "";
+        data = data.concat(mPrefab + ",");
+        data = data.concat(Integer.toString(mStackSize) + ",");
+        data = data.concat(Integer.toString(mDaysToExpiration));
+        return data;
+    }
     public IFood Clone() {
         IFood clone = FoodUtils.Spawn(this.GetPrefab());
         clone.SetStackSize(mStackSize);

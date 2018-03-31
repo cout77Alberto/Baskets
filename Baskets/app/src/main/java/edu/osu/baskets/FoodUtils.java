@@ -34,4 +34,11 @@ public class FoodUtils {
         item.SetStackSize(stackSize);
         return item;
     }
+
+    // args format: [prefab, stacksize, days-to-expire]
+    public static IFood SpawnFromArgs(String[] args) {
+        IFood item = Spawn(args[0], Integer.parseInt(args[1]));
+        item.SetDaysToExpire(Integer.parseInt(args[2]));
+        return item;
+    }
 }

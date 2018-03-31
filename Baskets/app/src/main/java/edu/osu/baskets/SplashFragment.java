@@ -1,5 +1,6 @@
 package edu.osu.baskets;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+
 /**
  * Splash screen fragment.
  */
@@ -23,6 +26,7 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
     protected int mSplashTime = 1000;
     protected int mTimeIncrement = 100;
     protected int mSleepTime = 100;
+    private String TAG = "SplashFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +58,16 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                     if (Account.localUserIdExists(getActivity())) {
                         // get userId from storage
                         String userId = Account.readUserId(getActivity());
+
+                        FoodUtils.PopulateConstructors(getActivity());
+                        /*
+                        File inv = new File(getActivity().getFilesDir(), "inventory.txt");
+                        inv.delete();
+                        */
+                        // get inventory from storage
+                        Inventory.get(getActivity()).LoadFromFile(getString(R.string.inventory_save_file));
+                        ManuallyFillInventory(getActivity());  //TODO: move this manual re-fill to INITIAL creation of an account
+
                         // firebase stuff to get account from db
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance()
                                 .getReference("users").child(userId);
@@ -92,5 +106,13 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
             return true;
         }
         return false;
+    }
+
+    private void ManuallyFillInventory(Context context) {
+        Inventory inv = Inventory.get(context);
+        inv.AddItemToBasket(FoodUtils.Spawn("strawberries",16));
+        inv.AddItemToBasket(FoodUtils.Spawn("water", 10));
+        inv.AddItemToBasket(FoodUtils.Spawn("gelatin", 2));
+        Log.d(TAG, "INVENTORY FILLED MANUALLY");
     }
 }

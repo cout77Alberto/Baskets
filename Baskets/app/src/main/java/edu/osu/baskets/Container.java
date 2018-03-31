@@ -132,7 +132,6 @@ public class Container {
         }
     }
 
-    //TODO: refactor so can account for slots that have varying amounts of the specified item
     /**
      * Adds an item to the container, in a new slot if possible. If container has no empty slots,
      *      will combine with other stacks of same prefab and return any extra.
@@ -221,7 +220,7 @@ public class Container {
                 IFood splitItems = Split(mSlots.get(slot), splitAmount);
                 CombineItems(removed, splitItems);
                 borrowCount -= splitAmount;
-            } else if (fromSemiFullsCount > 0) {
+            } else if (!mSlots.get(slot).IsFull() && fromSemiFullsCount > 0) {
                 //remove at most the number of items in the slot, decrement counter
                 int splitAmount = fromSemiFullsCount;
                 if (splitAmount > mSlots.get(slot).GetStackSize()) { splitAmount = mSlots.get(slot).GetStackSize(); }
@@ -246,6 +245,33 @@ public class Container {
         for (int slot = 0; slot < mSlots.size(); slot++) {
             mSlots.get(slot).AgeByDays(numDays);
             if (mSlots.get(slot).IsExpired()) { mSlots.set(slot, null); }
+        }
+    }
+
+    @Override
+    public String toString() {
+        //data format: [slot, slot-data]
+        //             [slot, prefab, stacksize, days-to-expire]
+        String data = "";
+        boolean first = true;
+        for (int slot : nonNullIndices(mSlots)) {
+            if (!first) { data = data.concat(","); }
+            //store position & slot info
+            data = data.concat(Integer.toString(slot) + ",");
+            data = data.concat(mSlots.get(slot).toString());
+            first = false;
+        }
+        return data;
+    }
+    public void FillFromString(String stringData) {
+        String[] data = stringData.split(",");
+        int index = 0;
+        while (index < data.length) {
+            String[] args = { data[index+1], data[index+2], data[index+3] };
+            IFood item = FoodUtils.SpawnFromArgs(args);
+
+            ForceItemInSlot(item, Integer.parseInt(data[index]));
+            index += 4;
         }
     }
 
