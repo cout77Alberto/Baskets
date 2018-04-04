@@ -105,6 +105,7 @@ public class InventoryFragment extends Fragment {
             }
         }
 
+        //TODO: move onClick response to background task???
         @Override
         public void onClick(View v) {
             if (mSlot != null) {
