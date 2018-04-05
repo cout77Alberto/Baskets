@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() called");
+        //TODO: use async task for I/O ?
         CookingHistory.get(this).saveToFile(this);
         Inventory.get(this).SaveToFile(getString(R.string.inventory_save_file));
     }
