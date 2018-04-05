@@ -4,6 +4,9 @@
     <string name="basket_name">Basket</string>
     <string name="fridge_name">Fridge</string>
 
+    <string name="recipes_button">RECIPES</string>
+    <string name="cooking_history_button">HISTORY</string>
+
     <string-array name="prefablist">
         <item>gelatin</item>
         <item>piecrust</item>
