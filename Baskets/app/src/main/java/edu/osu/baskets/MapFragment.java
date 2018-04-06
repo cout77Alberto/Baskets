@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import edu.osu.baskets.foods.BaseFood;
+
 
 /**
  * Created by Daniel on 2/20/2018.
@@ -45,8 +47,10 @@ public class MapFragment extends Fragment implements SensorEventListener{
             mTextView.setText(mStepCount+"Steps");
             mProgressBar.setMax(nextStepMilestone);
             mProgressBar.setProgress(mStepCount);
-            if(mStepCount>nextStepMilestone){
-                //do some stuff
+            if(mStepCount>=nextStepMilestone){
+               nextStepMilestone+=500;
+               mProgressBar.setMax(nextStepMilestone);
+               Inventory.get(getActivity()).AddItemToBasket(FoodUtils.Spawn("water",10));
             }
         }
     }

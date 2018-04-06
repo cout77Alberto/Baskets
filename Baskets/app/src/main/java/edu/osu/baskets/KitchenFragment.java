@@ -26,6 +26,7 @@ import edu.osu.baskets.recipes.BaseRecipe;
 import edu.osu.baskets.recipes.CookingHistory;
 import edu.osu.baskets.recipes.RecipeBook;
 import edu.osu.baskets.recipes.RecipeInfoActivity;
+import edu.osu.baskets.recipes.StrawberryShakeRecipe;
 
 /**
  * Created by Alberto on 2/19/2018.
@@ -99,12 +100,20 @@ public class KitchenFragment extends Fragment {
             mTitleTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Uri theUri = Uri.parse(mRecipe.url);
-                    Intent LaunchBrowserIntent =
-                            new Intent(Intent.ACTION_VIEW,
-                                    theUri);
-                    startActivity(
-                            LaunchBrowserIntent);
+                    if(toggle) {
+                        Uri theUri = Uri.parse(mRecipe.url);
+                        Intent LaunchBrowserIntent =
+                                new Intent(Intent.ACTION_VIEW,
+                                        theUri);
+                        startActivity(
+                                LaunchBrowserIntent);
+                    }else{
+                        RecipeInfoActivity.sRecipe = new StrawberryShakeRecipe(getActivity());
+                        Intent intent = new Intent(getActivity(),RecipeInfoActivity.class);
+                        startActivity(intent);
+                    }
+
+
                 }
             });
             mMakeButton = (Button) itemView.findViewById(R.id.make_button);
