@@ -22,7 +22,8 @@ public class RecipeBook {
 
     private RecipeBook(Context context) {
         mRecipes = new ArrayList<>();
-        mRecipes.add(new StrawberryShakeRecipe(context));
+        mRecipes.add(new strawberry_shake(context));
+        mRecipes.add(new strawberry_pie(context));
     }
 
     public void share(){}

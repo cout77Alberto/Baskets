@@ -13,12 +13,12 @@ import edu.osu.baskets.foods.water;
  * Created by Daniel on 3/21/2018.
  */
 
-public class StrawberryShakeRecipe extends BaseRecipe {
-    public StrawberryShakeRecipe(Context context){
+public class strawberry_shake extends BaseRecipe {
+    public strawberry_shake(Context context){
         url = "https://www.pinterest.com/search/pins/?q=strawberry%20shake%20recipe";
         BaseFood strawberries, water;
-        strawberries = (BaseFood) FoodUtils.Spawn("strawberries");
-        water = (BaseFood) FoodUtils.Spawn("water");
+        strawberries = (BaseFood) FoodUtils.Spawn("strawberries",5);
+        water = (BaseFood) FoodUtils.Spawn("water",2);
         requiredFoods.add(strawberries);
         requiredAmounts.add(5);
         requiredFoods.add(water);
