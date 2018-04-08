@@ -52,6 +52,10 @@ public class AccountCreationFragment extends Fragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // enable firebase local persistence
+                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+                // retrieve table reference
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance()
                         .getReference("users");
 

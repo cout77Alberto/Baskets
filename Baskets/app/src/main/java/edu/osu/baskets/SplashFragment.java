@@ -60,6 +60,9 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                         FoodUtils.PopulateConstructors(getActivity());
                         Inventory.get(getActivity()).LoadFromFile(getString(R.string.inventory_save_file));
 
+                        // enable firebase local persistence
+                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
                         // firebase stuff to get account from db
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance()
                                 .getReference("users").child(userId);
