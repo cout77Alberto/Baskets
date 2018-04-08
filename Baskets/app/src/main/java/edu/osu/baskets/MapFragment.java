@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.Random;
+
 
 /**
  * Created by Daniel on 2/20/2018.
@@ -47,8 +49,19 @@ public class MapFragment extends Fragment implements SensorEventListener{
             mProgressBar.setProgress(mStepCount);
             if(mStepCount>nextStepMilestone){
                 //do some stuff
+                addItem();
+                nextStepMilestone += mStepCount;
+                update();
             }
         }
+    }
+
+    private void addItem() {
+        Inventory inv = Inventory.get(getActivity());
+        String[] foods = getActivity().getResources().getStringArray(R.array.prefablist);
+        Random rand = new Random();
+        int foodIndex = rand.nextInt(foods.length);
+        inv.AddItemToBasket(FoodUtils.Spawn(foods[foodIndex], 5));
     }
 
     @Override
