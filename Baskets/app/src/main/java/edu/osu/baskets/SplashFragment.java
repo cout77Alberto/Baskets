@@ -59,14 +59,9 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                         // get userId from storage
                         String userId = Account.readUserId(getActivity());
 
+                        // initialize food constructors and get inventory from storage
                         FoodUtils.PopulateConstructors(getActivity());
-                        /*
-                        File inv = new File(getActivity().getFilesDir(), "inventory.txt");
-                        inv.delete();
-                        */
-                        // get inventory from storage
                         Inventory.get(getActivity()).LoadFromFile(getString(R.string.inventory_save_file));
-                        ManuallyFillInventory(getActivity());  //TODO: move this manual re-fill to INITIAL creation of an account
 
                         // firebase stuff to get account from db
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance()
@@ -106,13 +101,5 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
             return true;
         }
         return false;
-    }
-
-    private void ManuallyFillInventory(Context context) {
-        Inventory inv = Inventory.get(context);
-        inv.AddItemToBasket(FoodUtils.Spawn("strawberries",16));
-        inv.AddItemToBasket(FoodUtils.Spawn("water", 10));
-        inv.AddItemToBasket(FoodUtils.Spawn("gelatin", 2));
-        Log.d(TAG, "INVENTORY FILLED MANUALLY");
     }
 }

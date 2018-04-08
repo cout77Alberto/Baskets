@@ -36,8 +36,6 @@ public class InventoryFragment extends Fragment {
     @TargetApi(23)
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Toast.makeText(this.getContext(), R.string.strawberries, Toast.LENGTH_LONG).show();
     }
 
     @Nullable
