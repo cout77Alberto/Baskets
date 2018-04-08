@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AccountCreationFragment extends Fragment {
 
-    private static final String EXTRA_USER_ID = "user_id";
+    private String TAG = "AccountCreation";
 
     private EditText mNameBox;
     private Button mSaveButton;
@@ -51,6 +52,10 @@ public class AccountCreationFragment extends Fragment {
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // enable firebase local persistence
+                FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
+                // retrieve table reference
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance()
                         .getReference("users");
 
@@ -70,6 +75,17 @@ public class AccountCreationFragment extends Fragment {
                 AccountSingleton accountSingleton = AccountSingleton.get();
                 accountSingleton.setAccount(account);
 
+                // get inventory and dispense initial food items
+                FoodUtils.PopulateConstructors(getActivity());
+                Inventory inv = Inventory.get(getActivity());
+                inv.LoadFromFile(getString(R.string.inventory_save_file));
+
+                inv.AddItemToBasket(FoodUtils.Spawn("strawberries",16));
+                inv.AddItemToBasket(FoodUtils.Spawn("water", 10));
+                inv.AddItemToBasket(FoodUtils.Spawn("gelatin", 2));
+                Log.d(TAG, "Initial food dispensed");
+
+                // open main activity
                 Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
@@ -78,3 +94,4 @@ public class AccountCreationFragment extends Fragment {
         return v;
     }
 }
+

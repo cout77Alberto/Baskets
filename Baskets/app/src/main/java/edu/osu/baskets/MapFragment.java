@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.Random;
+
 import edu.osu.baskets.foods.BaseFood;
 
 
@@ -47,12 +49,21 @@ public class MapFragment extends Fragment implements SensorEventListener{
             mTextView.setText(mStepCount+"Steps");
             mProgressBar.setMax(nextStepMilestone);
             mProgressBar.setProgress(mStepCount);
-            if(mStepCount>=nextStepMilestone){
-               nextStepMilestone+=500;
-               mProgressBar.setMax(nextStepMilestone);
-               Inventory.get(getActivity()).AddItemToBasket(FoodUtils.Spawn("water",10));
+            if(mStepCount>nextStepMilestone){
+                //do some stuff
+                addItem();
+                nextStepMilestone += mStepCount;
+                update();
             }
         }
+    }
+
+    private void addItem() {
+        Inventory inv = Inventory.get(getActivity());
+        String[] foods = getActivity().getResources().getStringArray(R.array.prefablist);
+        Random rand = new Random();
+        int foodIndex = rand.nextInt(foods.length);
+        inv.AddItemToBasket(FoodUtils.Spawn(foods[foodIndex], 5));
     }
 
     @Override

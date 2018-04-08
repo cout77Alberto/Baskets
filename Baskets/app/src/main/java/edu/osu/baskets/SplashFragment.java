@@ -1,6 +1,4 @@
 package edu.osu.baskets;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,8 +13,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.File;
 
 /**
  * Splash screen fragment.
@@ -59,14 +55,12 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                         // get userId from storage
                         String userId = Account.readUserId(getActivity());
 
+                        // initialize food constructors and get inventory from storage
                         FoodUtils.PopulateConstructors(getActivity());
-                        /*
-                        File inv = new File(getActivity().getFilesDir(), "inventory.txt");
-                        inv.delete();
-                        */
-                        // get inventory from storage
                         Inventory.get(getActivity()).LoadFromFile(getString(R.string.inventory_save_file));
-                          //TODO: move this manual re-fill to INITIAL creation of an account
+
+                        // enable firebase local persistence
+                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
                         // firebase stuff to get account from db
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance()
@@ -92,7 +86,6 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                     } else {
                         Intent intent = new Intent(getActivity(), AccountCreationActivity.class);
                         startActivity(intent);
-                        ManuallyFillInventory(getActivity());
                     }
                 }
             }
@@ -107,13 +100,5 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
             return true;
         }
         return false;
-    }
-
-    private void ManuallyFillInventory(Context context) {
-        Inventory inv = Inventory.get(context);
-        inv.AddItemToBasket(FoodUtils.Spawn("strawberries",16));
-        inv.AddItemToBasket(FoodUtils.Spawn("water", 10));
-        inv.AddItemToBasket(FoodUtils.Spawn("gelatin", 2));
-        Log.d(TAG, "INVENTORY FILLED MANUALLY");
     }
 }
