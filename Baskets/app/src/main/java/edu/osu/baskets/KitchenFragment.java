@@ -34,7 +34,7 @@ import edu.osu.baskets.recipes.BaseRecipe;
 import edu.osu.baskets.recipes.CookingHistory;
 import edu.osu.baskets.recipes.RecipeBook;
 import edu.osu.baskets.recipes.RecipeInfoActivity;
-import edu.osu.baskets.recipes.StrawberryShakeRecipe;
+import edu.osu.baskets.recipes.strawberry_shake;
 
 /**
  * Created by Alberto on 2/19/2018.
@@ -119,12 +119,10 @@ public class KitchenFragment extends Fragment {
                         startActivity(
                                 LaunchBrowserIntent);
                     }else{
-                        RecipeInfoActivity.sRecipe = new StrawberryShakeRecipe(getActivity());
+                        RecipeInfoActivity.sRecipe = new strawberry_shake(getActivity());
                         Intent intent = new Intent(getActivity(),RecipeInfoActivity.class);
                         startActivity(intent);
                     }
-
-
                 }
             });
             mMakeButton = (Button) itemView.findViewById(R.id.make_button);

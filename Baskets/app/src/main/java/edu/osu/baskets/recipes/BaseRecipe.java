@@ -68,7 +68,7 @@ public class BaseRecipe {
         //add calories to account
         AccountSingleton account = AccountSingleton.get();
         account.addCalories(calories);
-        account.pushAccount();
+        //account.pushAccount();
         //remove food from inventory
         Inventory inventory = Inventory.get(context);
         for (int i = 0; i < requiredFoods.size(); i++) {

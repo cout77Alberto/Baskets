@@ -29,7 +29,7 @@ public class MapFragment extends Fragment implements SensorEventListener{
     private Sensor mSensor;
     private TextView mTextView;
     private int mStepCount;
-    private int nextStepMilestone= 300;
+    private static int nextStepMilestone= 300;
     private ProgressBar mProgressBar;
     @Override
     public final void onAccuracyChanged(Sensor sensor, int accuracy) {

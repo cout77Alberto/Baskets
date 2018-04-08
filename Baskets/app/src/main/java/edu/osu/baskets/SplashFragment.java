@@ -66,7 +66,7 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                         */
                         // get inventory from storage
                         Inventory.get(getActivity()).LoadFromFile(getString(R.string.inventory_save_file));
-                        ManuallyFillInventory(getActivity());  //TODO: move this manual re-fill to INITIAL creation of an account
+                          //TODO: move this manual re-fill to INITIAL creation of an account
 
                         // firebase stuff to get account from db
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance()
@@ -92,6 +92,7 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                     } else {
                         Intent intent = new Intent(getActivity(), AccountCreationActivity.class);
                         startActivity(intent);
+                        ManuallyFillInventory(getActivity());
                     }
                 }
             }
