@@ -4,11 +4,13 @@ import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import edu.osu.baskets.AccountSingleton;
 import edu.osu.baskets.Inventory;
 import edu.osu.baskets.R;
 import edu.osu.baskets.foods.BaseFood;
+import edu.osu.baskets.foods.IFood;
 
 /**
  * Created by Daniel on 3/9/2018.
@@ -18,7 +20,7 @@ public class BaseRecipe {
     protected int calories;
     protected String title;
     public String url="";
-    ArrayList<BaseFood> requiredFoods = new ArrayList<BaseFood>();
+    ArrayList<IFood> requiredFoods = new ArrayList<>();
     ArrayList<Integer> requiredAmounts = new ArrayList<>();
 
     public Date getLastCreated() {
@@ -58,7 +60,8 @@ public class BaseRecipe {
     public String getTitle(){
         return title;
     }
-    public  void setTitle(String t){
+    public List<IFood> getIngredients() { return requiredFoods; }
+    public void setTitle(String t){
         title = t;
     }
     public void make(Context context){

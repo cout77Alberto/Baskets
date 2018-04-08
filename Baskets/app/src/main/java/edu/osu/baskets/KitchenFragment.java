@@ -3,25 +3,33 @@ package edu.osu.baskets;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.util.Log;
 import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import edu.osu.baskets.foods.IFood;
 import edu.osu.baskets.recipes.BaseRecipe;
 import edu.osu.baskets.recipes.CookingHistory;
 import edu.osu.baskets.recipes.RecipeBook;
@@ -93,10 +101,13 @@ public class KitchenFragment extends Fragment {
         private TextView mTitleTextView, mCreatedTextView;
         private Button mMakeButton;
         private BaseRecipe mRecipe;
+        private RecyclerView mIngredientRecycler;
         public RecipeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_recipe, parent, false));
             mCreatedTextView = (TextView) itemView.findViewById(R.id.created_text);
             mTitleTextView = (TextView) itemView.findViewById(R.id.recipe_title);
+            mIngredientRecycler = (RecyclerView) itemView.findViewById(R.id.ingredient_recycler);
+
             mTitleTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -127,6 +138,9 @@ public class KitchenFragment extends Fragment {
                     }
                 }
             });
+
+            mIngredientRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 5));
+
             if(!toggle){
                 mMakeButton.setVisibility(View.INVISIBLE);
             }else{
@@ -147,6 +161,7 @@ public class KitchenFragment extends Fragment {
                 mMakeButton.setEnabled(true);
                 mMakeButton.setBackgroundColor(Color.GREEN);
             }
+            mIngredientRecycler.setAdapter(new IngredientAdapter(recipe.getIngredients()));
         }
     }
     private class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
@@ -168,8 +183,47 @@ public class KitchenFragment extends Fragment {
         }
         @Override
         public void onBindViewHolder(RecipeHolder holder, int position) {
-            BaseRecipe recipe = mRecipes.get(position);
-            holder.bind(recipe);
+            holder.bind(mRecipes.get(position));
+        }
+    }
+
+    private class IngredientHolder extends RecyclerView.ViewHolder {
+        private ImageView mThumbnailImageView;
+        private TextView mAmountTextView;
+        public IngredientHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.grid_item_food, parent, false));
+            mThumbnailImageView = itemView.findViewById(R.id.iv_food_thumbnail);
+            mAmountTextView = itemView.findViewById(R.id.tv_stack_size);
+            itemView.findViewById(R.id.tv_days_to_expire).setVisibility(View.INVISIBLE);
+            itemView.findViewById(R.id.pb_expiration_bar).setVisibility(View.INVISIBLE);
+        }
+
+        public void bind(IFood item) {
+            mThumbnailImageView.setBackgroundResource(item.GetImageResId());
+            mAmountTextView.setText(String.format("%d", item.GetStackSize()));
+        }
+    }
+    private class IngredientAdapter extends RecyclerView.Adapter<IngredientHolder> {
+        private List<IFood> mIngredients;
+
+        public IngredientAdapter(List<IFood> ingreds) {
+            mIngredients = ingreds;
+        }
+
+        @Override
+        public IngredientHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = LayoutInflater.from(getActivity());
+            return new IngredientHolder(inflater, parent);
+        }
+
+        @Override
+        public void onBindViewHolder(IngredientHolder holder, int position) {
+            holder.bind(mIngredients.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return mIngredients.size();
         }
     }
 }

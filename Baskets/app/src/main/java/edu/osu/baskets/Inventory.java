@@ -3,8 +3,11 @@ package edu.osu.baskets;
 import android.content.Context;
 import android.util.Log;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import edu.osu.baskets.foods.IFood;
 import edu.osu.baskets.recipes.BaseRecipe;
@@ -128,6 +131,49 @@ public class Inventory {
 
     public void AgeByDays(int daysPassed) {
         mBasket.AgeItemsByDays(daysPassed);
+    }
+
+    public void SaveToFile(String path) {
+        FileOutputStream out;
+        String data = "";
+
+        //data format: [container, container-info]
+        //             [container, slot, prefab, stacksize, days-to-expire, slot, prefab...]
+        data = data.concat(mContext.getString(R.string.basket_name) + "," + mBasket.toString());
+        data = data.concat("\n");
+        data = data.concat(mContext.getString(R.string.fridge_name) + "," + mFridge.toString());
+        data = data.concat("\n");
+
+        try {
+            out = mContext.openFileOutput(path, Context.MODE_PRIVATE);
+            out.write(data.getBytes());
+            out.close();
+            Log.d(TAG, "INVENTORY SAVED");
+        } catch (Exception e) {
+            Log.d(TAG, "ERROR SAVING INVENTORY");
+            e.printStackTrace();
+        }
+    }
+
+    public void LoadFromFile(String path) {
+        FileInputStream in;
+
+        try {
+            in = mContext.openFileInput(path);
+            Scanner scanner = new Scanner(in);
+            String basketString = scanner.nextLine().split(",", 2)[1];
+            String fridgeString = scanner.nextLine().split(",", 2)[1];
+
+            mBasket.FillFromString(basketString);
+            mFridge.FillFromString(fridgeString);
+
+            //scanner.close();
+            in.close();
+            Log.d(TAG, "INVENTORY LOADED");
+        } catch (Exception e) {
+            Log.d(TAG, "ERROR LOADING INVENTORY");
+            e.printStackTrace();
+        }
     }
 
     /*public int CalculateRecipePoints() {

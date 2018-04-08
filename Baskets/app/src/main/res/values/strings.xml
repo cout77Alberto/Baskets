@@ -4,6 +4,9 @@
     <string name="basket_name">Basket</string>
     <string name="fridge_name">Fridge</string>
 
+    <string name="recipes_button">RECIPES</string>
+    <string name="cooking_history_button">HISTORY</string>
+
     <string-array name="prefablist">
         <item>gelatin</item>
         <item>piecrust</item>
@@ -21,5 +24,7 @@
     <string name="account_creation_welcome">Welcome to Baskets! Enter a username for your account below and click Save to begin.</string>
     <string name="account_creation_name_hint">Enter name here!</string>
     <string name="save_button">Save</string>
+
+    <string name="inventory_save_file">inventory.txt</string>
 
 </resources>

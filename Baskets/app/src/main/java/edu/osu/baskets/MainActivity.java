@@ -15,6 +15,8 @@ import android.util.Log;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
+
 import edu.osu.baskets.recipes.CookingHistory;
 
 
@@ -36,29 +38,6 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mainToolbar);
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
-
-        FoodUtils.PopulateConstructors(this);
-        mInventory = Inventory.get(this);
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",7));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("water", 10));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",4));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",34));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",35));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",40));
-        mInventory.AddItemToBasket(FoodUtils.Spawn("strawberries",35));
-
-        mInventory.MoveToFridge(0);
-        mInventory.MoveToFridge(1);
-
-        //mInventory.RemoveItem("water", 1);
-        mInventory.RemoveItem("strawberries", 2);
-        mInventory.RemoveItem("strawberries", 3);
-        mInventory.RemoveItem("strawberries", 35);
-        mInventory.AddItemToBasket(FoodUtils.Spawn("gelatin", 2));
 
         android.app.FragmentManager fm = getFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.navbar_container);
@@ -111,12 +90,14 @@ public class MainActivity extends AppCompatActivity {
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause() called");
+        //TODO: use async task for I/O ?
+        CookingHistory.get(this).saveToFile(this);
+        Inventory.get(this).SaveToFile(getString(R.string.inventory_save_file));
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy() called");
-        CookingHistory.get(this).saveToFile(this);
     }
 }

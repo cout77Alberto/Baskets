@@ -15,9 +15,8 @@ import edu.osu.baskets.foods.water;
  * Created by Daniel on 3/21/2018.
  */
 
-public class StrawberryShakeRecipe extends BaseRecipe {
-
-    public StrawberryShakeRecipe(Context context){
+public class strawberry_shake extends BaseRecipe {
+    public strawberry_shake(Context context){
         url = "https://www.pinterest.com/search/pins/?q=strawberry%20shake%20recipe";
         BaseFood strawberries, water;
         strawberries = (BaseFood) FoodUtils.Spawn("strawberries");
