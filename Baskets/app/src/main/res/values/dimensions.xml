@@ -3,7 +3,7 @@
     <dimen name="navbar_height">70dp</dimen>
 
     <dimen name="basket_label_fontsize">24sp</dimen>
-    <dimen name="basket_space">270dp</dimen>
+    <dimen name="basket_space">250dp</dimen>
     <dimen name="basket_space_horizontal">250dp</dimen>
     <dimen name="fridge_border_height">50dp</dimen>
 
