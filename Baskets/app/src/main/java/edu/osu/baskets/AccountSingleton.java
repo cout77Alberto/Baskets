@@ -58,9 +58,11 @@ public class AccountSingleton {
 
     public void pushAccount() {
         // get reference to account firebase entry using id
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance()
-                .getReference("users").child(mAccount.getId());
-        // push account to 'users' node, overwriting old user
-        mDatabase.setValue(mAccount);
+        if(mAccount.getId()!=null) {
+            DatabaseReference mDatabase = FirebaseDatabase.getInstance()
+                    .getReference("users").child(mAccount.getId());
+            // push account to 'users' node, overwriting old user
+            mDatabase.setValue(mAccount);
+        }
     }
 }

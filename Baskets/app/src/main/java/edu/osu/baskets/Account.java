@@ -24,7 +24,7 @@ public class Account {
 
     public Account() {
         mName = "";
-        mId = "";
+
         mCalories = 0;
     }
 
