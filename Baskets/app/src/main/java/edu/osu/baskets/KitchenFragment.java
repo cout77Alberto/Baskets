@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -45,7 +46,6 @@ public class KitchenFragment extends Fragment {
     private static final String TAG = "KitchenFragment";
     private Button mRecipesButton, mHistoryButton;
     private RecyclerView mRecyclerView;
-    private RecipeAdapter mAdapter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,11 +89,9 @@ public class KitchenFragment extends Fragment {
         List<BaseRecipe> recipes = recipeBook.getRecipes();
         List<BaseRecipe> history = cookingHistory.reverse();
         if (toggle) {
-            mAdapter = new RecipeAdapter(recipes);
-            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.setAdapter(new RecipeAdapter(recipes));
         } else {
-            mAdapter = new RecipeAdapter(history);
-            mRecyclerView.setAdapter(mAdapter);
+            mRecyclerView.setAdapter(new RecipeAdapter(history));
         }
     }
 
@@ -130,9 +128,7 @@ public class KitchenFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if(mRecipe!=null) {
-                        mRecipe.make(getActivity());
-                        updateUI();
-                        Toast.makeText(getActivity(),"Calories Increased by "+mRecipe.getCalories(),Toast.LENGTH_LONG).show();
+                        new MakeRecipeTask().execute(mRecipe);
                     }
                 }
             });
@@ -222,6 +218,20 @@ public class KitchenFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mIngredients.size();
+        }
+    }
+
+    private class MakeRecipeTask extends AsyncTask<BaseRecipe, Void, BaseRecipe> {
+        @Override
+        protected BaseRecipe doInBackground(BaseRecipe... iRecipes) {
+            iRecipes[0].make(getActivity());
+            return iRecipes[0];
+        }
+
+        @Override
+        protected void onPostExecute(BaseRecipe recipe) {
+            updateUI();
+            Toast.makeText(getActivity(),"Calories Increased by " + recipe.getCalories(),Toast.LENGTH_LONG).show();
         }
     }
 }

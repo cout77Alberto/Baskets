@@ -2,6 +2,7 @@ package edu.osu.baskets;
 
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -103,11 +104,10 @@ public class InventoryFragment extends Fragment {
             }
         }
 
-        //TODO: move onClick response to background task???
         @Override
         public void onClick(View v) {
             if (mSlot != null) {
-                Snackbar.make(getActivity().findViewById(R.id.inventory_coordinator), String.format("%s  [%d cal]", mSlot.GetName(), mSlot.GetCalories()), Snackbar.LENGTH_SHORT).show();
+                new ShowFoodDetailSnackbarTask().execute(mSlot);
             }
         }
     }
@@ -137,6 +137,14 @@ public class InventoryFragment extends Fragment {
         }
     }
 
+    private class ShowFoodDetailSnackbarTask extends AsyncTask<IFood, Void, Void> {
+        @Override
+        protected Void doInBackground(IFood... iFoods) {
+            Snackbar.make(getActivity().findViewById(R.id.inventory_coordinator), String.format("%s  [%d cal]", iFoods[0].GetName(), iFoods[0].GetCalories()), Snackbar.LENGTH_SHORT).show();
+            return null;
+        }
+    }
+
 
     //Fragment lifecycle
     @Override
@@ -149,6 +157,7 @@ public class InventoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume() called");
+        //Inventory.get(getActivity()).AddItemToBasket(FoodUtils.Spawn("water", 10));
     }
 
     @Override
