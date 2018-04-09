@@ -157,6 +157,7 @@ public class InventoryFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d(TAG, "onResume() called");
+        //Inventory.get(getActivity()).AddItemToBasket(FoodUtils.Spawn("water", 10));
     }
 
     @Override
