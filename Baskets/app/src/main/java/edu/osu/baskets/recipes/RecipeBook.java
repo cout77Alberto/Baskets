@@ -33,7 +33,7 @@ public class RecipeBook {
     public ArrayList<BaseRecipe> getRecipes(){
         return  mRecipes;
     }
-    public BaseRecipe getCrime(String title) {
+    public BaseRecipe getRecipe(String title) {
         for (BaseRecipe recipe : mRecipes) {
             if (recipe.getTitle().equals(title)) {
                 return recipe;

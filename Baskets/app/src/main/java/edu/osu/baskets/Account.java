@@ -22,7 +22,11 @@ public class Account {
     private String mId;
     private int mCalories;
 
-    public Account() {}
+    public Account() {
+        mName = "";
+        mId = "";
+        mCalories = 0;
+    }
 
     public Account(String name, String id) {
         mName = name;
