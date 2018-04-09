@@ -16,6 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.awt.font.TextAttribute;
 import java.lang.reflect.Field;
 
 import edu.osu.baskets.foods.BaseFood;
@@ -29,7 +30,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.*;
-
+import static org.hamcrest.core.StringContains.containsString;
 /**
  * Instrumented test, which will execute on an Android device.
  *
@@ -72,7 +73,7 @@ public class UnitTestsForApp {
     }
 
     @Test
-    public void CheckScoreTest() throws Exception {
+    public void MoveFoodTest() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
         FoodUtils.PopulateConstructors(appContext);
@@ -88,10 +89,13 @@ public class UnitTestsForApp {
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule(SplashActivity.class);
+            new ActivityTestRule(MainActivity.class);
     @Test
     public void ViewAccountTest() {
-        Espresso.onView(withId(R.id.account)).perform(click());
-
+        Espresso.onView(withText("Baskets"));
+        Espresso.openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        Espresso.onView(withText("Account")).perform(click());
+        Espresso.onView(withId(R.id.account_name)).check(matches(withText(containsString("Name:"))));
+        Espresso.onView(withId(R.id.account_calories)).check(matches(withText(containsString("Calories:"))));
     }
 }

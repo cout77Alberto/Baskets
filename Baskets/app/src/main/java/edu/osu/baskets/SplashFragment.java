@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import edu.osu.baskets.recipes.CookingHistory;
+
 /**
  * Splash screen fragment.
  */
@@ -58,7 +60,7 @@ public class SplashFragment extends Fragment implements View.OnTouchListener{
                         // initialize food constructors and get inventory from storage
                         FoodUtils.PopulateConstructors(getActivity());
                         Inventory.get(getActivity()).LoadFromFile(getString(R.string.inventory_save_file));
-
+                        CookingHistory.get(getActivity()).initialize(getActivity());
                         // enable firebase local persistence
                         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 

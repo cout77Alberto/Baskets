@@ -75,7 +75,6 @@ public class CookingHistory {
         }catch (Exception e){
             Log.d(TAG, "no file for cooking history read "+e.getMessage());
         }
-
     }
 
     public void saveToFile(Context context) {

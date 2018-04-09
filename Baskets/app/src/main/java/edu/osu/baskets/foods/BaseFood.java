@@ -141,4 +141,14 @@ public class BaseFood implements IFood {
         clone.SetDaysToExpire(mDaysToExpiration);
         return clone;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if(!BaseFood.class.isInstance(obj)){
+            return false;
+        }else {
+            BaseFood baseFood = (BaseFood) obj;
+            return mPrefab.equals(baseFood.GetPrefab());
+        }
+    }
 }

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -31,7 +32,8 @@ public class MapFragment extends Fragment implements SensorEventListener{
     private Sensor mSensor;
     private TextView mTextView;
     private int mStepCount;
-    private static int nextStepMilestone= 300;
+    private static int sStepOffest;
+    private static int nextStepMilestone= 20;
     private ProgressBar mProgressBar;
     @Override
     public final void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -40,7 +42,10 @@ public class MapFragment extends Fragment implements SensorEventListener{
 
     @Override
     public final void onSensorChanged(SensorEvent event) {
-        mStepCount = (int) event.values[0];
+        if(sStepOffest==0) {
+            sStepOffest = (int) event.values[0];
+        }
+        mStepCount = (int) event.values[0] - sStepOffest;
         update();
     }
 
@@ -49,10 +54,10 @@ public class MapFragment extends Fragment implements SensorEventListener{
             mTextView.setText(mStepCount+"Steps");
             mProgressBar.setMax(nextStepMilestone);
             mProgressBar.setProgress(mStepCount);
-            if(mStepCount>nextStepMilestone){
+            if(mStepCount>=nextStepMilestone){
                 //do some stuff
                 addItem();
-                nextStepMilestone += mStepCount;
+                nextStepMilestone += 20;
                 update();
             }
         }
@@ -64,6 +69,7 @@ public class MapFragment extends Fragment implements SensorEventListener{
         Random rand = new Random();
         int foodIndex = rand.nextInt(foods.length);
         inv.AddItemToBasket(FoodUtils.Spawn(foods[foodIndex], 5));
+        Toast.makeText(getActivity(),foods[foodIndex]+"(5)",Toast.LENGTH_LONG).show();
     }
 
     @Override

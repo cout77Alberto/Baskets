@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(accountIntent);
                 return true;
             case R.id.leader:
+                AccountSingleton.get().pushAccount();
                 Intent leaderIntent = new Intent(MainActivity.this, LeaderActivity.class);
                 startActivity(leaderIntent);
                 return true;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         Log.d(TAG, "onStart() called");
-        CookingHistory.get(this).initialize(this);
+
     }
 
     @Override
