@@ -27,7 +27,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/basket_texture" />
 
         <ImageView
             android:id="@+id/iv_fridge_background"
@@ -44,7 +45,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/fridge_texture" />
 
         <TextView
             android:id="@+id/tv_basket_title"
@@ -52,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:text="@string/basket_name"
             android:textColor="@android:color/black"
             android:textSize="@dimen/basket_label_fontsize"
@@ -71,27 +74,13 @@
             app:layout_constraintStart_toStartOf="@+id/iv_basket_background"
             app:layout_constraintTop_toTopOf="@+id/iv_basket_background" />
 
-
-        <ImageView
-            android:id="@+id/iv_fridge_top_border"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/fridge_border_height"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/fridge_icicles_description"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="@+id/iv_fridge_background"
-            app:layout_constraintStart_toStartOf="@+id/iv_fridge_background"
-            app:layout_constraintTop_toTopOf="@+id/iv_fridge_background" />
-
         <TextView
             android:id="@+id/tv_fridge_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:text="@string/fridge_name"
             android:textColor="@android:color/black"
             android:textSize="@dimen/basket_label_fontsize"
@@ -111,8 +100,19 @@
             app:layout_constraintStart_toStartOf="@+id/iv_fridge_background"
             app:layout_constraintTop_toTopOf="@+id/iv_fridge_background" />
 
-    </android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_fridge_top_border"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/fridge_border_height"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/fridge_icicles_description"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="@+id/iv_fridge_background"
+            app:layout_constraintStart_toStartOf="@+id/iv_fridge_background"
+            app:layout_constraintTop_toTopOf="@+id/iv_fridge_background"
+            app:srcCompat="@drawable/fridge_border" />
 
+    </android.support.constraint.ConstraintLayout>
 </android.support.design.widget.CoordinatorLayout>
 
 
