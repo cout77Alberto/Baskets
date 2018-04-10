@@ -3,31 +3,22 @@ package edu.osu.baskets;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
-import android.util.Log;
-import android.util.TimeUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import edu.osu.baskets.foods.IFood;
@@ -181,11 +172,14 @@ public class KitchenFragment extends Fragment {
         }
     }
 
-    private class IngredientHolder extends RecyclerView.ViewHolder {
+    private class IngredientHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private ImageView mThumbnailImageView;
         private TextView mAmountTextView;
+        private IFood mIngred;
         public IngredientHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.grid_item_food, parent, false));
+            itemView.setOnClickListener(this);
+
             mThumbnailImageView = itemView.findViewById(R.id.iv_food_thumbnail);
             mAmountTextView = itemView.findViewById(R.id.tv_stack_size);
             itemView.findViewById(R.id.tv_days_to_expire).setVisibility(View.INVISIBLE);
@@ -193,8 +187,18 @@ public class KitchenFragment extends Fragment {
         }
 
         public void bind(IFood item) {
-            mThumbnailImageView.setBackgroundResource(item.GetImageResId());
+            mIngred = item;
+            if (item.GetImageResId() != 0) {
+                mThumbnailImageView.setBackgroundResource(item.GetImageResId());
+            } else {
+                mThumbnailImageView.setBackgroundResource(android.R.drawable.btn_star_big_on);
+            }
             mAmountTextView.setText(String.format("%d", item.GetStackSize()));
+        }
+
+        @Override
+        public void onClick(View v) {
+            new ShowIngredDetailSnackbarTask().execute(mIngred);
         }
     }
     private class IngredientAdapter extends RecyclerView.Adapter<IngredientHolder> {
@@ -232,6 +236,14 @@ public class KitchenFragment extends Fragment {
         protected void onPostExecute(BaseRecipe recipe) {
             updateUI();
             Toast.makeText(getActivity(),"Calories Increased by " + recipe.getCalories(),Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private class ShowIngredDetailSnackbarTask extends AsyncTask<IFood, Void, Void> {
+        @Override
+        protected Void doInBackground(IFood... iFoods) {
+            Snackbar.make(getActivity().findViewById(R.id.kitchen_coordinator), String.format("%s  [%d cal]", iFoods[0].GetName(), iFoods[0].GetCalories()), Snackbar.LENGTH_SHORT).show();
+            return null;
         }
     }
 }
